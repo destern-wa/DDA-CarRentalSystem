@@ -17,11 +17,11 @@ namespace ConsoleApp_Assignment2
             return this.lastServiceOdometerKm;
         }
 
-        /**
-         * The function recordService expects the total distance traveled by the car, 
-         * saves it and increase serviceCount.
-         * @param distance 
-         */
+        /// <summary>
+        /// The function recordService expects the total distance traveled by the car,
+        /// saves it and increase serviceCount.
+        /// </summary>
+        /// <param name="distance"></param>
         public void recordService(int distance)
         {
             this.lastServiceOdometerKm = distance;
@@ -33,13 +33,12 @@ namespace ConsoleApp_Assignment2
         {
             return this.serviceCount;
         }
-
-        /**
-         * Calculates the total services by dividing kilometers by
-         * {@link #SERVICE_KILOMETER_LIMIT} and floors the value. 
-         * 
-         * @return the number of services needed per SERVICE_KILOMETER_LIMIT
-         */
+ 
+        /// <summary>
+        /// Calculates the total services by dividing kilometers by
+        /// <see cref="SERVICE_KILOMETER_LIMIT"/> and floors the value.
+        /// </summary>
+        /// <returns></returns>
         public int getTotalScheduledServices()
         {
             return (int)Math.Floor( (double)(lastServiceOdometerKm / SERVICE_KILOMETER_LIMIT) );

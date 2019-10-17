@@ -14,13 +14,13 @@ namespace ConsoleApp_Assignment2
 
         private FuelPurchase fuelPurchase;
 
-        /**
-         * Class constructor specifying name of make (manufacturer), model and year
-         * of make.
-         * @param manufacturer
-         * @param model
-         * @param makeYear
-         */
+        /// <summary>
+        /// Class constructor specifying name of make (manufacturer), model and year
+        /// of make.
+        /// </summary>
+        /// <param name="manufacturer"></param>
+        /// <param name="model"></param>
+        /// <param name="makeYear"></param>
         public Vehicle(string manufacturer, string model, int makeYear)
         {
             this.manufacturer = manufacturer;
@@ -31,9 +31,9 @@ namespace ConsoleApp_Assignment2
 
         // TODO Add missing getter and setter methods
 
-        /**
-         * Prints details for {@link Vehicle}
-         */
+        /// <summary>
+        /// Prints details for <see cref="Vehicle"/>
+        /// </summary>
         public void printDetails()
         {
             Console.WriteLine("Vehicle: " + makeYear + " " + manufacturer + " " + model);
