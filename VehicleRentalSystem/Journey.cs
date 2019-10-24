@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp_Assignment2
+﻿namespace VehicleRentalSystem
 {
     public class Journey
     {

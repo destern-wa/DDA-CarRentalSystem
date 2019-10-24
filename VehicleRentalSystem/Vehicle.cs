@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConsoleApp_Assignment2
+namespace VehicleRentalSystem
 {
     public class Vehicle
     {
@@ -34,9 +34,9 @@ namespace ConsoleApp_Assignment2
         /// <summary>
         /// Prints details for <see cref="Vehicle"/>
         /// </summary>
-        public void printDetails()
+        public string printDetails()
         {
-            Console.WriteLine("Vehicle: " + makeYear + " " + manufacturer + " " + model);
+            return "Vehicle: " + makeYear + " " + manufacturer + " " + model;
             // TODO Display additional information about this vehicle
         }
 

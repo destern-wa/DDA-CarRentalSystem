@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConsoleApp_Assignment2
+namespace VehicleRentalSystem
 {
     public class Service
     {
