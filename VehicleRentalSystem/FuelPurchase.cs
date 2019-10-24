@@ -29,6 +29,10 @@ namespace VehicleRentalSystem
             {
                 throw new Exception("Amount must be greater than 0");
             }
+            if (price < 0)
+            {
+                throw new Exception("Price can not be negative");
+            }
             this.litres += amount;
             this.cost += price;
         }
