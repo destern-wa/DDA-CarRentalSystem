@@ -21,6 +21,10 @@ namespace VehicleRentalSystem
 
         public void setFuelEconomy(double fuelEconomy)
         {
+            if (fuelEconomy <= 0)
+            {
+                throw new Exception("Fuel economy must be greater than 0");
+            }
             this.fuelEconomy = fuelEconomy;
         }
         public void purchaseFuel(double amount, double price)
