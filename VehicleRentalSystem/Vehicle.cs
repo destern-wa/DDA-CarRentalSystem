@@ -31,6 +31,16 @@ namespace VehicleRentalSystem
             {
                 throw new Exception("Model must be specified");
             }
+            const int OLDEST_MAKE_YEAR = 1900;
+            int currentYear = DateTime.Today.Year;
+            if (makeYear < OLDEST_MAKE_YEAR)
+            {
+                throw new Exception("Invalid year of make (too old)");
+            }
+            else if (makeYear > currentYear)
+            {
+                throw new Exception("Invalid year of make (can not be in the future)");
+            }
 
             this.manufacturer = manufacturer;
             this.model = model;

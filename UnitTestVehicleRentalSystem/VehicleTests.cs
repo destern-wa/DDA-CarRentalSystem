@@ -20,10 +20,11 @@ namespace UnitTestVehicleRentalSystem
             bool gaveError = false;
             try
             {
-                Vehicle v = new Vehicle("man", "mod", 3000);
+                Vehicle v = new Vehicle("man", "mod", 2000);
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.ToString());
                 gaveError = true;
             }
             finally
@@ -38,7 +39,7 @@ namespace UnitTestVehicleRentalSystem
             bool gaveError = false;
             try
             {
-                Vehicle v = new Vehicle("", "mod", 3000);
+                Vehicle v = new Vehicle("", "mod", 2000);
             }
             catch
             {
@@ -56,7 +57,7 @@ namespace UnitTestVehicleRentalSystem
             bool gaveError = false;
             try
             {
-                Vehicle v = new Vehicle("man", "", 3000);
+                Vehicle v = new Vehicle("man", "", 2000);
             }
             catch
             {
@@ -90,7 +91,7 @@ namespace UnitTestVehicleRentalSystem
         public void TestFutureMakeYearConstructor()
         {
             bool gaveError = false;
-            int currentYear = (new DateTime()).Year;
+            int currentYear = DateTime.Today.Year;
             try
             {
                 Vehicle v = new Vehicle("man", "mod", currentYear+1);
