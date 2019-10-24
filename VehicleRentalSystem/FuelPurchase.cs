@@ -1,4 +1,6 @@
-﻿namespace VehicleRentalSystem
+﻿using System;
+
+namespace VehicleRentalSystem
 {
     public class FuelPurchase
     {
@@ -23,6 +25,10 @@
         }
         public void purchaseFuel(double amount, double price)
         {
+            if (amount <= 0)
+            {
+                throw new Exception("Amount must be greater than 0");
+            }
             this.litres += amount;
             this.cost += price;
         }
