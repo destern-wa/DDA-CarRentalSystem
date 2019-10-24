@@ -1,9 +1,19 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace VehicleRentalSystem
 {
-    public class Vehicle
+    public class Vehicle : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
 
         private string manufacturer;
         private string model;
@@ -11,6 +21,36 @@ namespace VehicleRentalSystem
         // TODO add Registration Number 
         // TODO add variable for OdometerReading (in KM), 
         // TODO add variable for TankCapacity (in litres)
+
+        public string Manufacturer
+        {
+            get => manufacturer;
+            set
+            {
+                manufacturer = value;
+                OnPropertyChanged("Manufacturer");
+            }
+        }
+        public string Model
+        {
+            get => model;
+            set
+            {
+                model = value;
+                OnPropertyChanged("Model");
+            }
+        }
+        public int Year
+        {
+            get => makeYear;
+            set
+            {
+                makeYear = value;
+                OnPropertyChanged("Year");
+            }
+        }
+
+
 
         private FuelPurchase fuelPurchase;
 

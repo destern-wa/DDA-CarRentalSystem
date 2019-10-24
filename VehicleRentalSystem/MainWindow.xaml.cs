@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VehicleRentalSystem
+namespace VehicleRentalSystem.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -25,14 +25,14 @@ namespace VehicleRentalSystem
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            Vehicle v = new Vehicle("Ford", "T812", 2014);
+        //private void Window_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    Vehicle v = new Vehicle("Ford", "T812", 2014);
 
-            // Vehicle sample distance
-            v.addFuel(new Random().NextDouble() * 10, 1.3);
+        //    // Vehicle sample distance
+        //    v.addFuel(new Random().NextDouble() * 10, 1.3);
 
-            OutputTextBlock.Text = v.printDetails();
-        }
+        //    OutputTextBlock.Text = v.printDetails();
+        //}
     }
 }
