@@ -1,4 +1,6 @@
-﻿namespace VehicleRentalSystem
+﻿using System;
+
+namespace VehicleRentalSystem
 {
     public class Journey
     {
@@ -18,6 +20,10 @@
         /// <param name="kilometers"></param>
         public void addKilometers(double kilometers)
         {
+            if (kilometers <= 0)
+            {
+                throw new Exception("Distance to add must be greater than 0");
+            }
             this.kilometers += kilometers;
         }
 
