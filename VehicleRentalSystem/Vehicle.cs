@@ -23,6 +23,15 @@ namespace VehicleRentalSystem
         /// <param name="makeYear"></param>
         public Vehicle(string manufacturer, string model, int makeYear)
         {
+            if (string.IsNullOrWhiteSpace(manufacturer))
+            {
+                throw new Exception("Manufacture must be specified");
+            }
+            if (string.IsNullOrWhiteSpace(model))
+            {
+                throw new Exception("Model must be specified");
+            }
+
             this.manufacturer = manufacturer;
             this.model = model;
             this.makeYear = makeYear;
