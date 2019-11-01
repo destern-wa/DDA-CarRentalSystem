@@ -12,17 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using VehicleRentalSystem.ViewModel;
 namespace VehicleRentalSystem.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Vehicle : Window
     {
-        public MainWindow()
+        public Vehicle(ref EventAggregator eventAggregator)
         {
             InitializeComponent();
+            this.DataContext = new VehicleViewModel(ref eventAggregator);
         }
 
         //private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -55,10 +55,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="MainWindowViewModel.cs" />
-    <Compile Include="Service.cs" />
-    <Compile Include="Vehicle.cs" />
-    <Page Include="MainWindow.xaml">
+    <Compile Include="DelegateCommand.cs" />
+    <Compile Include="Messaging.cs" />
+    <Compile Include="ViewModel\AddVehicleViewModel.cs" />
+    <Compile Include="ViewModel\VehicleViewModel.cs" />
+    <Compile Include="Model\Service.cs" />
+    <Compile Include="Model\Vehicle.cs" />
+    <Page Include="View\AddVehicle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Vehicle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -66,10 +73,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FuelPurchase.cs" />
-    <Compile Include="Journey.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Model\FuelPurchase.cs" />
+    <Compile Include="Model\Journey.cs" />
+    <Compile Include="View\AddVehicle.xaml.cs">
+      <DependentUpon>AddVehicle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Vehicle.xaml.cs">
+      <DependentUpon>Vehicle.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -99,5 +109,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

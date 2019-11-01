@@ -17,10 +17,11 @@ namespace VehicleRentalSystem
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            View.MainWindow main = new View.MainWindow();
-            MainWindowViewModel mainWinViewModel = new MainWindowViewModel();
-            main.DataContext = mainWinViewModel;
-            main.Show();
+            EventAggregator eventAggregator = new EventAggregator();
+            View.Vehicle VehicleView = new View.Vehicle(ref eventAggregator);
+            VehicleViewModel vehicleViewModel = new VehicleViewModel(ref eventAggregator);
+            VehicleView.DataContext = vehicleViewModel;
+            VehicleView.Show();
         }
     }
 }
