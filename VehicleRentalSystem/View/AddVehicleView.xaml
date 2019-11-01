@@ -24,9 +24,9 @@
         <Label x:Name="MakeLabel" Content="Make" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="50"/>
         <Label Content="Model" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="50"/>
         <Label Content="Year" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="10,10,0,0"  VerticalAlignment="Top" Width="50"/>
-        <TextBox x:Name="MakeTextbox"  Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="262"/>
-        <TextBox x:Name="ModelTextbox" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="262"/>
-        <TextBox x:Name="YearTextbox" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="3" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="262"/>
+        <TextBox x:Name="MakeTextbox"  Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=MakeName}" VerticalAlignment="Top" Width="262"/>
+        <TextBox x:Name="ModelTextbox" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Path=ModelName}" VerticalAlignment="Top" Width="262"/>
+        <TextBox x:Name="YearTextbox" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Path=Year}" VerticalAlignment="Top" Width="262"/>
         <Button x:Name="SubmitButton" Content="Submit" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="75"
                 Command="{Binding Path=SaveCommand}" CommandParameter="{Binding ElementName=lstPerson, Path=SelectedItem.Address}"/>
         <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Left" Margin="90,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="75"/>

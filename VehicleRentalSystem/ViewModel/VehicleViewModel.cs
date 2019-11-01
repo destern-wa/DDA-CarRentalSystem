@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace VehicleRentalSystem.ViewModel
 {
-    class VehicleViewModel : IListen<Message>
+    class VehicleViewModel : ViewModelBase<Message>
     {
         private ObservableCollection<Vehicle> _vehicleList;
         private EventAggregator eventAggregator;
@@ -61,7 +61,7 @@ namespace VehicleRentalSystem.ViewModel
             addVehicleWin.ShowDialog();
         }
 
-        public void Handle(Message obj)
+        public override void Handle(Message obj)
         {
             Vehicle v = obj.Vehicle;
             Vehicles.Add(v);
