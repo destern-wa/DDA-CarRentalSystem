@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VehicleRentalSystem.ViewModel
 {
-    class AddVehicleViewModel// : IListen<Messaging>
+    class AddVehicleViewModel
     {
         private EventAggregator eventAggregator;
         private readonly DelegateCommand<string> _saveCommand;
@@ -35,7 +31,7 @@ namespace VehicleRentalSystem.ViewModel
         private void SaveVehicle()
         {
                 Vehicle v = new Vehicle("man", "mod", 2000);
-                this.eventAggregator.Publish(new Messaging { Vehicle = v });
+                this.eventAggregator.Publish(new Message { Vehicle = v });
         }
 
         protected void OnRequestClose()

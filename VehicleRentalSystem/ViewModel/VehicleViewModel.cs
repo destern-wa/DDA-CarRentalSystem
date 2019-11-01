@@ -1,30 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using VehicleRentalSystem.View;
-using VehicleRentalSystem;
 using System.Collections.ObjectModel;
 
 namespace VehicleRentalSystem.ViewModel
 {
-    class VehicleViewModel : IListen<Messaging>
+    class VehicleViewModel : IListen<Message>
     {
-        //private List<Vehicle> _vehicleList;
         private ObservableCollection<Vehicle> _vehicleList;
         private EventAggregator eventAggregator;
+
         // Command to use instead of onclick event. Based on: https://blog.magnusmontin.net/2013/06/30/handling-events-in-an-mvvm-wpf-application/
         private readonly DelegateCommand<string> _addCommand;
 
-        private AddVehicle addVehicleWin;
+        private AddVehicleView addVehicleWin;
 
         public VehicleViewModel(ref EventAggregator eventAggregator)
         {
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
-            //_vehicleList = new List<Vehicle>()
+            //_vehicleList = new List<VehicleView>()
             _vehicleList = new ObservableCollection<Vehicle>()
             {
                 new Vehicle("Make1", "mode1", 2001),
@@ -37,7 +32,7 @@ namespace VehicleRentalSystem.ViewModel
             );
         }
 
-        //public List<Vehicle> Vehicles
+        //public List<VehicleView> Vehicles
         public ObservableCollection<Vehicle> Vehicles
         {
             get => _vehicleList;
@@ -62,28 +57,15 @@ namespace VehicleRentalSystem.ViewModel
         // Based on: https://www.c-sharpcorner.com/article/how-to-open-a-child-window-from-view-model-in-mvvm-in-wpf2/
         private void ShowAddVehicleDialog()
         {
-            this.addVehicleWin = new AddVehicle(ref eventAggregator);
-            //addVehicleWin.eventAggregator = eventAggregator;
+            this.addVehicleWin = new AddVehicleView(ref eventAggregator);
             addVehicleWin.ShowDialog();
-            //if (addVehicleWin.theVehicle != null)
-            //{
-            //    _vehicleList.Add(addVehicleWin.theVehicle);
-            //}
         }
 
-        public void Handle(Messaging obj)
+        public void Handle(Message obj)
         {
-            Console.WriteLine("VehicleViewModel recieved a message!");
             Vehicle v = obj.Vehicle;
-            Console.WriteLine("Vehicle: " + v.Manufacturer + " " + v.Model + " " + v.Year.ToString());
-            //List<Vehicle> updatedVehicles = Vehicles.ToList();
-            //updatedVehicles.Add(v);
-            //Vehicles = updatedVehicles;
             Vehicles.Add(v);
         }
-
-
-
 
         private ICommand mUpdater;
         public ICommand UpdateCommand
@@ -100,9 +82,8 @@ namespace VehicleRentalSystem.ViewModel
             }
         }
 
-
-
     }
+
     class Updater : ICommand
     {
         #region ICommand Members  

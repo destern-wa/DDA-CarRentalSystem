@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-// MVVM messaging (between windows) based on https://www.c-sharpcorner.com/UploadFile/20c06b/messaging-system-in-wpf/
+// MVVM messaging to allow data to be passed between windows. Based on
+// https://www.c-sharpcorner.com/UploadFile/20c06b/messaging-system-in-wpf/
 
 namespace VehicleRentalSystem
 {
@@ -37,7 +38,7 @@ namespace VehicleRentalSystem
         }
     }
 
-    class Messaging
+    class Message
     {
         public Vehicle Vehicle { get; set; }
     }

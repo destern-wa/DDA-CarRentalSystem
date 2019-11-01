@@ -56,16 +56,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DelegateCommand.cs" />
-    <Compile Include="Messaging.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="ViewModel\AddVehicleViewModel.cs" />
     <Compile Include="ViewModel\VehicleViewModel.cs" />
     <Compile Include="Model\Service.cs" />
     <Compile Include="Model\Vehicle.cs" />
-    <Page Include="View\AddVehicle.xaml">
+    <Page Include="View\AddVehicleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Vehicle.xaml">
+    <Page Include="View\VehicleView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -75,11 +75,11 @@
     </Compile>
     <Compile Include="Model\FuelPurchase.cs" />
     <Compile Include="Model\Journey.cs" />
-    <Compile Include="View\AddVehicle.xaml.cs">
-      <DependentUpon>AddVehicle.xaml</DependentUpon>
+    <Compile Include="View\AddVehicleView.xaml.cs">
+      <DependentUpon>AddVehicleView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Vehicle.xaml.cs">
-      <DependentUpon>Vehicle.xaml</DependentUpon>
+    <Compile Include="View\VehicleView.xaml.cs">
+      <DependentUpon>VehicleView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
