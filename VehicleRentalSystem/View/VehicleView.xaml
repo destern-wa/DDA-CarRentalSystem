@@ -17,7 +17,7 @@
             <MenuItem x:Name="VehicleMenu" Header="_Vehicle">
                 <MenuItem x:Name="AddVehicleMenuItem" Header="_Add" Command="{Binding AddVehicleClickCommand}"/>
                 <MenuItem x:Name="EditVehicleMenuItem" Header="_Edit" Command="{Binding EditVehicleClickCommand}"/>
-                <MenuItem x:Name="DeleteVehicleMenuItem" Header="_Delete"/>
+                <MenuItem x:Name="DeleteVehicleMenuItem" Header="_Delete" Command="{Binding DeleteVehicleClickCommand}"/>
             </MenuItem>
         </Menu>
 

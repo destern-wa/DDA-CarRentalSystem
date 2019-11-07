@@ -15,6 +15,7 @@ namespace VehicleRentalSystem.ViewModel
         // Command to use instead of onclick event. Based on: https://blog.magnusmontin.net/2013/06/30/handling-events-in-an-mvvm-wpf-application/
         private readonly DelegateCommand<string> _addCommand;
         private readonly DelegateCommand<string> _editCommand;
+        private readonly DelegateCommand<string> _deleteCommand;
 
         private AddVehicleView addVehicleWin;
         private EditVehicleView editVehicleWin;
@@ -39,6 +40,10 @@ namespace VehicleRentalSystem.ViewModel
                 (s) => { ShowEditVehicleDialog(); },
                 (s) => { return SelectedVehicle != null; }
             );
+            _deleteCommand = new DelegateCommand<string>(
+                (s) => { ShowDeleteVehicleDialog(); },
+                (s) => { return SelectedVehicle != null; }
+            );
         }
 
 
@@ -47,6 +52,7 @@ namespace VehicleRentalSystem.ViewModel
             set {
                 _selectedVehicle = value;
                 _editCommand.RaiseCanExecuteChanged();
+                _deleteCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -87,6 +93,21 @@ namespace VehicleRentalSystem.ViewModel
             }
         }
 
+        public DelegateCommand<string> DeleteVehicleClickCommand
+        {
+            get { return _deleteCommand; }
+        }
+        private string _deleteinput;
+        public string Deleteinput
+        {
+            get { return _deleteinput; }
+            set
+            {
+                _deleteinput = value;
+                _deleteCommand.RaiseCanExecuteChanged();
+            }
+        }
+
 
         // Based on: https://www.c-sharpcorner.com/article/how-to-open-a-child-window-from-view-model-in-mvvm-in-wpf2/
         private void ShowAddVehicleDialog()
@@ -99,6 +120,20 @@ namespace VehicleRentalSystem.ViewModel
         {
             this.editVehicleWin = new EditVehicleView(SelectedVehicle, ref eventAggregator);
             editVehicleWin.ShowDialog();
+        }
+
+        private void ShowDeleteVehicleDialog()
+        {
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show(
+                "Are you sure?",
+                "Delete confirmation",
+                MessageBoxButton.YesNo
+            );
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                Vehicles.Remove(SelectedVehicle);
+                SelectedVehicle = null;
+            }
         }
 
         public override void Handle(Message obj)
