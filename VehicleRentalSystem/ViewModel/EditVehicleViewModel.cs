@@ -6,6 +6,7 @@ namespace VehicleRentalSystem.ViewModel
     {
         private EventAggregator eventAggregator;
         private readonly DelegateCommand<string> _saveCommand;
+        private readonly DelegateCommand<string> _cancelCommand;
 
         // MVVM window closing per Andrew's comment in https://social.msdn.microsoft.com/Forums/en-US/17aabea0-4aca-478f-9205-fcd56080b22a/how-to-close-a-window-by-clicking-the-button-using-mvvm?forum=wpf
         public event EventHandler RequestClose;
@@ -72,12 +73,20 @@ namespace VehicleRentalSystem.ViewModel
                 }, //Execute
                 (s) => { return true; } //CanExecute //TODO: should be based upon inputted values
             );
+            _cancelCommand = new DelegateCommand<string>(
+                (s) => { OnRequestClose(); },
+                (s) => { return true; } //CanExecute -- always
+            );
         }
 
 
         public DelegateCommand<string> SaveCommand
         {
-            get { return _saveCommand; }
+            get => _saveCommand;
+        }
+        public DelegateCommand<string> CancelCommand
+        {
+            get => _cancelCommand;
         }
 
         private bool SaveVehicle()

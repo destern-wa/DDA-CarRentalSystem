@@ -44,9 +44,10 @@
 
         <Button x:Name="SubmitButton" Content="Submit" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="7" VerticalAlignment="Top" Width="75"
                 Command="{Binding Path=SaveCommand}" CommandParameter="{Binding ElementName=lstPerson, Path=SelectedItem.Address}"/>
-        <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Left" Margin="90,10,0,0" Grid.Row="7" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Left" Margin="90,10,0,0" Grid.Row="7" VerticalAlignment="Top" Width="75"
+                Command="{Binding Path=CancelCommand}" />
 
-        <Label Content="{Binding ErrorMessage}" Grid.Column="2" HorizontalAlignment="Left" Margin="10,37,0,0" Grid.Row="7" VerticalAlignment="Top" Width="306" FontSize="10" FontWeight="Bold" Foreground="Red"/>
+        <Label Content="{Binding ErrorMessage}" Grid.Column="2" HorizontalAlignment="Left" Margin="10,37,0,0" Grid.Row="7" VerticalAlignment="Top" Width="306" FontSize="11" FontWeight="Bold" Foreground="Red"/>
         
     </Grid>
 </Window>
