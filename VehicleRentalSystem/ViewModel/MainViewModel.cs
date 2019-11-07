@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace VehicleRentalSystem.ViewModel
 {
-    class VehicleViewModel : ViewModelBase<Message>
+    class MainViewModel : ViewModelBase<Message>
     {
         private ObservableCollection<Vehicle> _vehicleList;
         private EventAggregator eventAggregator;
@@ -19,7 +19,7 @@ namespace VehicleRentalSystem.ViewModel
 
         private EditVehicleView editVehicleWin;
 
-        public VehicleViewModel(ref EventAggregator eventAggregator)
+        public MainViewModel(ref EventAggregator eventAggregator)
         {
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);

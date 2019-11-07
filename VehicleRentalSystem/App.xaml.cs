@@ -18,8 +18,8 @@ namespace VehicleRentalSystem
         {
             base.OnStartup(e);
             EventAggregator eventAggregator = new EventAggregator();
-            View.VehicleView VehicleView = new View.VehicleView(ref eventAggregator);
-            VehicleViewModel vehicleViewModel = new VehicleViewModel(ref eventAggregator);
+            View.MainView VehicleView = new View.MainView(ref eventAggregator);
+            MainViewModel vehicleViewModel = new MainViewModel(ref eventAggregator);
             VehicleView.DataContext = vehicleViewModel;
             VehicleView.Show();
         }

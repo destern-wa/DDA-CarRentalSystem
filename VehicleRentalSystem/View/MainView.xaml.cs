@@ -5,12 +5,12 @@ namespace VehicleRentalSystem.View
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class VehicleView : Window
+    public partial class MainView : Window
     {
-        public VehicleView(ref EventAggregator eventAggregator)
+        public MainView(ref EventAggregator eventAggregator)
         {
             InitializeComponent();
-            this.DataContext = new VehicleViewModel(ref eventAggregator);
+            this.DataContext = new MainViewModel(ref eventAggregator);
         }
     }
 }
