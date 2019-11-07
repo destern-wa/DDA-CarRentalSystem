@@ -12,7 +12,7 @@
               VerticalAlignment="Top"
               Width="793">
             <MenuItem x:Name="FileMenu" Header="_File">
-                <MenuItem Header="E_xit" InputGestureText="ALT+F4"/>
+                <MenuItem Header="E_xit" InputGestureText="ALT+F4" Command="{Binding ExitCommand}"/>
             </MenuItem>
             <MenuItem x:Name="VehicleMenu" Header="_Vehicle">
                 <MenuItem Header="_View details" Command="{Binding ViewVehicleClickCommand}"/>

@@ -10,6 +10,7 @@ namespace VehicleRentalSystem.ViewModel
     {
         private ObservableCollection<Vehicle> _vehicleList;
         private EventAggregator eventAggregator;
+        public event EventHandler RequestClose;
         private Vehicle _selectedVehicle;
 
         // Command to use instead of onclick event. Based on: https://blog.magnusmontin.net/2013/06/30/handling-events-in-an-mvvm-wpf-application/
@@ -17,6 +18,7 @@ namespace VehicleRentalSystem.ViewModel
         private readonly DelegateCommand<string> _editCommand;
         private readonly DelegateCommand<string> _deleteCommand;
         private readonly DelegateCommand<string> _viewCommand;
+        private readonly DelegateCommand<string> _exitCommand;
 
         private EditVehicleView editVehicleWin;
         private VehicleDetailsView viewVehicleWin;
@@ -49,8 +51,11 @@ namespace VehicleRentalSystem.ViewModel
                 (s) => { ShowVehicleDetailsDialog(SelectedVehicle); },
                 (s) => { return SelectedVehicle != null; }
             );
+            _exitCommand = new DelegateCommand<string>(
+                (s) => { OnRequestClose(); },
+                (s) => true
+            );
         }
-
 
         public Vehicle SelectedVehicle {
             get => _selectedVehicle;
@@ -117,6 +122,11 @@ namespace VehicleRentalSystem.ViewModel
             get => _viewCommand;
         }
 
+        public DelegateCommand<string> ExitCommand
+        {
+            get => _exitCommand;
+        }
+
 
         // Based on: https://www.c-sharpcorner.com/article/how-to-open-a-child-window-from-view-model-in-mvvm-in-wpf2/
         //private void ShowAddVehicleDialog()
@@ -169,6 +179,13 @@ namespace VehicleRentalSystem.ViewModel
                     }
                 }
             }
+        }
+
+        protected void OnRequestClose()
+        {
+            EventHandler handler = this.RequestClose;
+            if (handler != null)
+                handler(this, EventArgs.Empty);
         }
 
         private ICommand mUpdater;

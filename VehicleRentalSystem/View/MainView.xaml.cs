@@ -10,7 +10,9 @@ namespace VehicleRentalSystem.View
         public MainView(ref EventAggregator eventAggregator)
         {
             InitializeComponent();
-            this.DataContext = new MainViewModel(ref eventAggregator);
+            //MainViewModel ViewModel = new MainViewModel(ref eventAggregator, (s, e) => this.Close());
+            ////ViewModel.RequestClose += (s, e) => this.Close();
+            //this.DataContext = ViewModel;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using VehicleRentalSystem.View;
 using VehicleRentalSystem.ViewModel;
 
 namespace VehicleRentalSystem
@@ -18,10 +19,11 @@ namespace VehicleRentalSystem
         {
             base.OnStartup(e);
             EventAggregator eventAggregator = new EventAggregator();
-            View.MainView VehicleView = new View.MainView(ref eventAggregator);
+            MainView MainView = new MainView(ref eventAggregator);
             MainViewModel vehicleViewModel = new MainViewModel(ref eventAggregator);
-            VehicleView.DataContext = vehicleViewModel;
-            VehicleView.Show();
+            vehicleViewModel.RequestClose += (s, ea) => MainView.Close();
+            MainView.DataContext = vehicleViewModel;
+            MainView.Show();
         }
     }
 }
