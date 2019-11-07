@@ -49,6 +49,9 @@ namespace VehicleRentalSystem
                 OnPropertyChanged("Year");
             }
         }
+        public string Registration { get; set; }
+        public string Odometer { get; set; }
+        public string TankCapacity { get; set; }
 
 
 

@@ -24,9 +24,12 @@
         <ListView x:Name="VehiclesListView" Grid.Row="2" ItemsSource="{Binding Vehicles}" Width="793">
             <ListView.View>
                 <GridView>
+                    <GridViewColumn Width="80" Header="Registration" DisplayMemberBinding="{Binding Registration}" />
                     <GridViewColumn Width="50" Header="Year" DisplayMemberBinding="{Binding Year}" />
-                    <GridViewColumn Width="200" Header="Manufacturer" DisplayMemberBinding="{Binding Manufacturer}" />
-                    <GridViewColumn Width="400" Header="Model" DisplayMemberBinding="{Binding Model}" />
+                    <GridViewColumn Width="150" Header="Manufacturer" DisplayMemberBinding="{Binding Manufacturer}" />
+                    <GridViewColumn Width="300" Header="Model" DisplayMemberBinding="{Binding Model}" />
+                    <GridViewColumn Width="100" Header="Odometer" DisplayMemberBinding="{Binding Odometer}" />
+                    <GridViewColumn Width="100" Header="Tank Capactity" DisplayMemberBinding="{Binding TankCapacity}" />
                 </GridView>
             </ListView.View>
         </ListView>
