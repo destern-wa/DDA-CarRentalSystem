@@ -16,7 +16,7 @@ namespace VehicleRentalSystem
     {
         void Handle(T obj);
     }
-    public abstract class ViewModelBase
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected bool SetProperty<T>(ref T field, T newValue,

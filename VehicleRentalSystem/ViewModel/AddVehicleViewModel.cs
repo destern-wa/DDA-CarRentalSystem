@@ -10,6 +10,17 @@ namespace VehicleRentalSystem.ViewModel
         // MVVM window closing per Andrew's comment in https://social.msdn.microsoft.com/Forums/en-US/17aabea0-4aca-478f-9205-fcd56080b22a/how-to-close-a-window-by-clicking-the-button-using-mvvm?forum=wpf
         public event EventHandler RequestClose;
 
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                SetProperty(ref _errorMessage, value);
+            }
+
+        }
+
         private string _makeName;
         public string MakeName
         {
@@ -36,18 +47,22 @@ namespace VehicleRentalSystem.ViewModel
             {
                 SetProperty(ref _year, value);
             }
-    }
+        }
 
         public AddVehicleViewModel(ref EventAggregator eventAggregator)
         {
+            ErrorMessage = "No error";
             this.eventAggregator = eventAggregator;
             /// TODO FOR NEXT TIME: https://www.wpftutorial.net/DelegateCommand.html
             /// 
             _saveCommand = new DelegateCommand<string>(
                 (s) =>
                 {
-                    SaveVehicle();
-                    OnRequestClose();
+                    bool saved = SaveVehicle();
+                    if (saved)
+                    {
+                        OnRequestClose();
+                    }
                 }, //Execute
                 (s) => { return true; } //CanExecute //TODO: should be based upon inputted values
             );
@@ -59,10 +74,18 @@ namespace VehicleRentalSystem.ViewModel
             get { return _saveCommand; }
         }
 
-        private void SaveVehicle()
+        private bool SaveVehicle()
         {
+            try
+            {
                 Vehicle v = new Vehicle(MakeName, ModelName, int.Parse(Year));
                 this.eventAggregator.Publish(new Message { Vehicle = v });
+                return true;
+            } catch(Exception ex)
+            {
+                ErrorMessage = ex.Message;
+                return false;
+            }
         }
 
         protected void OnRequestClose()
