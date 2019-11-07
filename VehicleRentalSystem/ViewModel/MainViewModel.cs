@@ -16,8 +16,10 @@ namespace VehicleRentalSystem.ViewModel
         private readonly DelegateCommand<string> _addCommand;
         private readonly DelegateCommand<string> _editCommand;
         private readonly DelegateCommand<string> _deleteCommand;
+        private readonly DelegateCommand<string> _viewCommand;
 
         private EditVehicleView editVehicleWin;
+        private VehicleDetailsView viewVehicleWin;
 
         public MainViewModel(ref EventAggregator eventAggregator)
         {
@@ -43,6 +45,10 @@ namespace VehicleRentalSystem.ViewModel
                 (s) => { ShowDeleteVehicleDialog(); },
                 (s) => { return SelectedVehicle != null; }
             );
+            _viewCommand = new DelegateCommand<string>(
+                (s) => { ShowVehicleDetailsDialog(SelectedVehicle); },
+                (s) => { return SelectedVehicle != null; }
+            );
         }
 
 
@@ -52,6 +58,7 @@ namespace VehicleRentalSystem.ViewModel
                 _selectedVehicle = value;
                 _editCommand.RaiseCanExecuteChanged();
                 _deleteCommand.RaiseCanExecuteChanged();
+                _viewCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -105,6 +112,10 @@ namespace VehicleRentalSystem.ViewModel
                 _deleteCommand.RaiseCanExecuteChanged();
             }
         }
+        public DelegateCommand<string> ViewVehicleClickCommand
+        {
+            get => _viewCommand;
+        }
 
 
         // Based on: https://www.c-sharpcorner.com/article/how-to-open-a-child-window-from-view-model-in-mvvm-in-wpf2/
@@ -132,6 +143,12 @@ namespace VehicleRentalSystem.ViewModel
                 Vehicles.Remove(SelectedVehicle);
                 SelectedVehicle = null;
             }
+        }
+
+        public void ShowVehicleDetailsDialog(Vehicle vehicle)
+        {
+            viewVehicleWin = new VehicleDetailsView(vehicle);
+            viewVehicleWin.ShowDialog();
         }
 
         public override void Handle(Message obj)

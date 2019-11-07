@@ -62,6 +62,10 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="Model\Service.cs" />
     <Compile Include="Model\Vehicle.cs" />
+    <Compile Include="ViewModel\VehicleDetailsViewModel.cs" />
+    <Compile Include="View\VehicleDetailsView.xaml.cs">
+      <DependentUpon>VehicleDetailsView.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\EditVehicleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -83,6 +87,10 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\VehicleDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
