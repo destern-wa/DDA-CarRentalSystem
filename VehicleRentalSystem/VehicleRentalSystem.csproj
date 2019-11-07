@@ -58,15 +58,10 @@
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="ViewModelBase.cs" />
-    <Compile Include="ViewModel\AddVehicleViewModel.cs" />
     <Compile Include="ViewModel\EditVehicleViewModel.cs" />
     <Compile Include="ViewModel\VehicleViewModel.cs" />
     <Compile Include="Model\Service.cs" />
     <Compile Include="Model\Vehicle.cs" />
-    <Page Include="View\AddVehicleView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\EditVehicleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -81,9 +76,6 @@
     </Compile>
     <Compile Include="Model\FuelPurchase.cs" />
     <Compile Include="Model\Journey.cs" />
-    <Compile Include="View\AddVehicleView.xaml.cs">
-      <DependentUpon>AddVehicleView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\EditVehicleView.xaml.cs">
       <DependentUpon>EditVehicleView.xaml</DependentUpon>
     </Compile>

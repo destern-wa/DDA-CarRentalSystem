@@ -17,7 +17,6 @@ namespace VehicleRentalSystem.ViewModel
         private readonly DelegateCommand<string> _editCommand;
         private readonly DelegateCommand<string> _deleteCommand;
 
-        private AddVehicleView addVehicleWin;
         private EditVehicleView editVehicleWin;
 
         public VehicleViewModel(ref EventAggregator eventAggregator)
@@ -32,12 +31,12 @@ namespace VehicleRentalSystem.ViewModel
             };
 
             _addCommand = new DelegateCommand<string>(
-                (s) => { ShowAddVehicleDialog(); }, //Execute
+                (s) => { ShowEditVehicleDialog(null); }, //Execute
                 (s) => { return true; } //CanExecute - in this case, always
             );
 
             _editCommand = new DelegateCommand<string>(
-                (s) => { ShowEditVehicleDialog(); },
+                (s) => { ShowEditVehicleDialog(SelectedVehicle); },
                 (s) => { return SelectedVehicle != null; }
             );
             _deleteCommand = new DelegateCommand<string>(
@@ -56,7 +55,6 @@ namespace VehicleRentalSystem.ViewModel
             }
         }
 
-        //public List<VehicleView> Vehicles
         public ObservableCollection<Vehicle> Vehicles
         {
             get => _vehicleList;
@@ -110,15 +108,15 @@ namespace VehicleRentalSystem.ViewModel
 
 
         // Based on: https://www.c-sharpcorner.com/article/how-to-open-a-child-window-from-view-model-in-mvvm-in-wpf2/
-        private void ShowAddVehicleDialog()
-        {
-            this.addVehicleWin = new AddVehicleView(ref eventAggregator);
-            addVehicleWin.ShowDialog();
-        }
+        //private void ShowAddVehicleDialog()
+        //{
+        //    this.editVehicleWin = new EditVehicleView(null, ref eventAggregator);
+        //    addVehicleWin.ShowDialog();
+        //}
 
-        private void ShowEditVehicleDialog()
+        private void ShowEditVehicleDialog(Vehicle vehicleToEdit)
         {
-            this.editVehicleWin = new EditVehicleView(SelectedVehicle, ref eventAggregator);
+            this.editVehicleWin = new EditVehicleView(vehicleToEdit, ref eventAggregator);
             editVehicleWin.ShowDialog();
         }
 

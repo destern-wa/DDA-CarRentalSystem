@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VehicleRentalSystem.View"
         mc:Ignorable="d"
-        Title="Edit Vehicle" Height="500" Width="450">
+        Title="Enter vehicle details" Height="500" Width="450">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
@@ -46,5 +46,7 @@
                 Command="{Binding Path=SaveCommand}" CommandParameter="{Binding ElementName=lstPerson, Path=SelectedItem.Address}"/>
         <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Left" Margin="90,10,0,0" Grid.Row="7" VerticalAlignment="Top" Width="75"/>
 
+        <Label Content="{Binding ErrorMessage}" Grid.Column="2" HorizontalAlignment="Left" Margin="10,37,0,0" Grid.Row="7" VerticalAlignment="Top" Width="306" FontSize="10" FontWeight="Bold" Foreground="Red"/>
+        
     </Grid>
 </Window>

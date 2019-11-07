@@ -11,6 +11,16 @@ namespace VehicleRentalSystem.ViewModel
         public event EventHandler RequestClose;
         private Vehicle oldVehicle;
 
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                SetProperty(ref _errorMessage, value);
+            }
+        }
+
         private string _makeName;
         public string MakeName
         {
@@ -41,18 +51,24 @@ namespace VehicleRentalSystem.ViewModel
 
         public EditVehicleViewModel(Vehicle oldVehicle, ref EventAggregator eventAggregator)
         {
+            ErrorMessage = "";
             this.oldVehicle = oldVehicle;
-            MakeName = oldVehicle.Manufacturer;
-            ModelName = oldVehicle.Model;
-            Year = oldVehicle.Year.ToString();
-
+            if (oldVehicle != null)
+            {
+                MakeName = oldVehicle.Manufacturer;
+                ModelName = oldVehicle.Model;
+                Year = oldVehicle.Year.ToString();
+            }
 
             this.eventAggregator = eventAggregator;
             _saveCommand = new DelegateCommand<string>(
                 (s) =>
                 {
-                    SaveVehicle();
-                    OnRequestClose();
+                    bool saved = SaveVehicle();
+                    if (saved)
+                    {
+                        OnRequestClose();
+                    }
                 }, //Execute
                 (s) => { return true; } //CanExecute //TODO: should be based upon inputted values
             );
@@ -64,10 +80,19 @@ namespace VehicleRentalSystem.ViewModel
             get { return _saveCommand; }
         }
 
-        private void SaveVehicle()
+        private bool SaveVehicle()
         {
-            Vehicle v = new Vehicle(MakeName, ModelName, int.Parse(Year));
-            this.eventAggregator.Publish(new Message { Vehicle = v, OldVehicle = oldVehicle });
+            try
+            {
+                Vehicle v = new Vehicle(MakeName, ModelName, int.Parse(Year));
+                this.eventAggregator.Publish(new Message { Vehicle = v, OldVehicle = oldVehicle });
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+                return false;
+            }
         }
 
         protected void OnRequestClose()
