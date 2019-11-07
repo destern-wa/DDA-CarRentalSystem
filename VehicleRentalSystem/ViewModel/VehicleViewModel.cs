@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using VehicleRentalSystem.View;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace VehicleRentalSystem.ViewModel
 {
@@ -9,11 +10,14 @@ namespace VehicleRentalSystem.ViewModel
     {
         private ObservableCollection<Vehicle> _vehicleList;
         private EventAggregator eventAggregator;
+        private Vehicle _selectedVehicle;
 
         // Command to use instead of onclick event. Based on: https://blog.magnusmontin.net/2013/06/30/handling-events-in-an-mvvm-wpf-application/
         private readonly DelegateCommand<string> _addCommand;
+        private readonly DelegateCommand<string> _editCommand;
 
         private AddVehicleView addVehicleWin;
+        private EditVehicleView editVehicleWin;
 
         public VehicleViewModel(ref EventAggregator eventAggregator)
         {
@@ -27,9 +31,23 @@ namespace VehicleRentalSystem.ViewModel
             };
 
             _addCommand = new DelegateCommand<string>(
-            (s) => { ShowAddVehicleDialog(); }, //Execute
-            (s) => { return true; } //CanExecute - in this case, always
+                (s) => { ShowAddVehicleDialog(); }, //Execute
+                (s) => { return true; } //CanExecute - in this case, always
             );
+
+            _editCommand = new DelegateCommand<string>(
+                (s) => { ShowEditVehicleDialog(); },
+                (s) => { return SelectedVehicle != null; }
+            );
+        }
+
+
+        public Vehicle SelectedVehicle {
+            get => _selectedVehicle;
+            set {
+                _selectedVehicle = value;
+                _editCommand.RaiseCanExecuteChanged();
+            }
         }
 
         //public List<VehicleView> Vehicles
@@ -54,6 +72,22 @@ namespace VehicleRentalSystem.ViewModel
             }
         }
 
+        public DelegateCommand<string> EditVehicleClickCommand
+        {
+            get { return _editCommand; }
+        }
+        private string _editinput;
+        public string Editinput
+        {
+            get { return _editinput; }
+            set
+            {
+                _editinput = value;
+                _editCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+
         // Based on: https://www.c-sharpcorner.com/article/how-to-open-a-child-window-from-view-model-in-mvvm-in-wpf2/
         private void ShowAddVehicleDialog()
         {
@@ -61,10 +95,30 @@ namespace VehicleRentalSystem.ViewModel
             addVehicleWin.ShowDialog();
         }
 
+        private void ShowEditVehicleDialog()
+        {
+            this.editVehicleWin = new EditVehicleView(SelectedVehicle, ref eventAggregator);
+            editVehicleWin.ShowDialog();
+        }
+
         public override void Handle(Message obj)
         {
             Vehicle v = obj.Vehicle;
-            Vehicles.Add(v);
+            Vehicle old = obj.OldVehicle;
+            if (old == null)
+            {
+                Vehicles.Add(v);
+            } else
+            {
+                for (int i=0; i<Vehicles.Count; i++ )
+                {
+                    if (Vehicles[i].printDetails() == old.printDetails())
+                    {
+                        Vehicles[i] = v;
+                        break;
+                    }
+                }
+            }
         }
 
         private ICommand mUpdater;

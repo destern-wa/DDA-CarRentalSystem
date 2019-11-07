@@ -1,0 +1,50 @@
+﻿<Window x:Class="VehicleRentalSystem.View.EditVehicleView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VehicleRentalSystem.View"
+        mc:Ignorable="d"
+        Title="Edit Vehicle" Height="500" Width="450">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="MakeLabel" Content="Make" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="50"/>
+        <TextBox x:Name="MakeTextbox"  Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=MakeName}" VerticalAlignment="Top" Width="296"/>
+
+        <Label Content="Model" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="50"/>
+        <TextBox x:Name="ModelTextbox" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Path=ModelName}" VerticalAlignment="Top" Width="296"/>
+
+        <Label Content="Year" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="10,10,0,0"  VerticalAlignment="Top" Width="50"/>
+        <TextBox x:Name="YearTextbox" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Path=Year}" VerticalAlignment="Top" Width="296"/>
+
+        <Label Content="Registartion" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="10,10,0,0"  VerticalAlignment="Top" Width="80"/>
+        <TextBox x:Name="RegoTextbox" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4" TextWrapping="Wrap" Text="{Binding Path=Registration}" VerticalAlignment="Top" Width="296"/>
+
+        <Label Content="Odometer" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" Margin="10,10,0,0"  VerticalAlignment="Top" Width="80"/>
+        <TextBox x:Name="OdometerTextbox" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="5" TextWrapping="Wrap" Text="{Binding Path=Odometer}" VerticalAlignment="Top" Width="296"/>
+
+        <Label Content="Tank capacity" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Margin="10,10,0,0"  VerticalAlignment="Top" Width="86"/>
+        <TextBox x:Name="TankTextbox" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="6" TextWrapping="Wrap" Text="{Binding Path=TankCapacity}" VerticalAlignment="Top" Width="296"/>
+
+        <Button x:Name="SubmitButton" Content="Submit" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="7" VerticalAlignment="Top" Width="75"
+                Command="{Binding Path=SaveCommand}" CommandParameter="{Binding ElementName=lstPerson, Path=SelectedItem.Address}"/>
+        <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Left" Margin="90,10,0,0" Grid.Row="7" VerticalAlignment="Top" Width="75"/>
+
+    </Grid>
+</Window>

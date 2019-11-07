@@ -76,5 +76,6 @@ namespace VehicleRentalSystem
     class Message
     {
         public Vehicle Vehicle { get; set; }
+        public Vehicle OldVehicle { get; set; }
     }
 }

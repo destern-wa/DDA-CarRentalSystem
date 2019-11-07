@@ -16,12 +16,12 @@
             </MenuItem>
             <MenuItem x:Name="VehicleMenu" Header="_Vehicle">
                 <MenuItem x:Name="AddVehicleMenuItem" Header="_Add" Command="{Binding AddVehicleClickCommand}"/>
-                <MenuItem x:Name="EditVehicleMenuItem" Header="_Edit"/>
+                <MenuItem x:Name="EditVehicleMenuItem" Header="_Edit" Command="{Binding EditVehicleClickCommand}"/>
                 <MenuItem x:Name="DeleteVehicleMenuItem" Header="_Delete"/>
             </MenuItem>
         </Menu>
 
-        <ListView x:Name="VehiclesListView" Grid.Row="2" ItemsSource="{Binding Vehicles}" Width="793">
+        <ListView x:Name="VehiclesListView" Grid.Row="2" ItemsSource="{Binding Vehicles}" SelectedItem="{Binding SelectedVehicle}" Width="793">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="80" Header="Registration" DisplayMemberBinding="{Binding Registration}" />
