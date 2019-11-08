@@ -208,5 +208,31 @@ namespace UnitTestVehicleRentalSystem
                 Assert.IsTrue(gaveError);
             }
         }
+
+        [TestMethod]
+        public void TestNeedsFuelTrue()
+        {
+            double tankCapacity = 60;
+            double addFuelAmount = 30;
+            Vehicle v = new Vehicle("man", "mod", 2007, "1REG088", 1000, tankCapacity);
+
+            v.addFuel(addFuelAmount, 1.30);
+            bool needsFuel = v.needsFuel();
+
+            Assert.IsTrue(needsFuel);
+        }
+
+        [TestMethod]
+        public void TestNeedsFuelFalse()
+        {
+            double tankCapacity = 60;
+            double addFuelAmount = 58;
+            Vehicle v = new Vehicle("man", "mod", 2007, "1REG088", 1000, tankCapacity);
+
+            v.addFuel(addFuelAmount, 1.30);
+            bool needsFuel = v.needsFuel();
+
+            Assert.IsFalse(needsFuel);
+        }
     }
 }

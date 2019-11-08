@@ -83,6 +83,16 @@ namespace VehicleRentalSystem
                 OnPropertyChanged("HasTank");
             }
         }
+        private double fuelInTank = 0;
+        public double FuelInTank
+        {
+            get => fuelInTank;
+            set
+            {
+                fuelInTank = value;
+                OnPropertyChanged("FuelInTank");
+            }
+        }
 
         private FuelPurchase fuelPurchase;
 
@@ -187,6 +197,16 @@ namespace VehicleRentalSystem
         public void addFuel(double litres, double price)
         {
             fuelPurchase.purchaseFuel(litres, price);
+            fuelInTank += litres;
         }
+
+        // check if car needs fuel
+        public bool needsFuel()
+        {
+            if (!hasTank) return false;
+            double FILLED_TANK_TOLERANCE = 5;
+            return fuelInTank < (tankCapacity - FILLED_TANK_TOLERANCE);
+        }
+
     }
 }
