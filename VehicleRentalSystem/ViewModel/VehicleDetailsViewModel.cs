@@ -81,8 +81,8 @@ namespace VehicleRentalSystem.ViewModel
             );
 
             ManModelYear = vehicle.Manufacturer + " " + vehicle.Model + " " + vehicle.Year.ToString();
-            Registration = "1REG088"; //FIXME: use real data
-            TotalKm = "123"; //FIXME: use real data
+            Registration = vehicle.Registration;
+            TotalKm = vehicle.Odometer.ToString() + " km";
             Services = "4"; //FIXME: use real data
             Revenue = "$ 5678.90"; //FIXME: use real data
             KmSinceLastService = "123"; //FIXME: use real data
