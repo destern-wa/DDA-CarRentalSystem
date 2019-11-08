@@ -49,6 +49,33 @@ namespace VehicleRentalSystem.ViewModel
                 SetProperty(ref _year, value);
             }
         }
+        private string _registration;
+        public string Registration
+        {
+            get => _registration;
+            set
+            {
+                SetProperty(ref _registration, value);
+            }
+        }
+        private string _odometer;
+        public string Odometer
+        {
+            get => _odometer;
+            set
+            {
+                SetProperty(ref _odometer, value);
+            }
+        }
+        private string _tankCapacity;
+        public string TankCapacity
+        {
+            get => _tankCapacity;
+            set
+            {
+                SetProperty(ref _tankCapacity, value);
+            }
+        }
 
         public EditVehicleViewModel(Vehicle oldVehicle, ref EventAggregator eventAggregator)
         {
@@ -59,6 +86,9 @@ namespace VehicleRentalSystem.ViewModel
                 MakeName = oldVehicle.Manufacturer;
                 ModelName = oldVehicle.Model;
                 Year = oldVehicle.Year.ToString();
+                Registration = oldVehicle.Registration;
+                Odometer = oldVehicle.Odometer.ToString();
+                TankCapacity = oldVehicle.HasTank ? oldVehicle.TankCapacity.ToString() : "";
             }
 
             this.eventAggregator = eventAggregator;
@@ -93,7 +123,15 @@ namespace VehicleRentalSystem.ViewModel
         {
             try
             {
-                Vehicle v = new Vehicle(MakeName, ModelName, int.Parse(Year), "1REG0345", 1200, 50.0); // TODO: use real data instead of placeholders
+                Vehicle v;
+                bool hasTank = !String.IsNullOrWhiteSpace(TankCapacity);
+
+                if (hasTank) {
+                    v = new Vehicle(MakeName, ModelName, int.Parse(Year), Registration, int.Parse(Odometer), Double.Parse(TankCapacity));
+                } else
+                {
+                    v = new Vehicle(MakeName, ModelName, int.Parse(Year), Registration, int.Parse(Odometer));
+                }
                 this.eventAggregator.Publish(new Message { Vehicle = v, OldVehicle = oldVehicle });
                 return true;
             }

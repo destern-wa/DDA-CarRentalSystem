@@ -153,7 +153,12 @@ namespace VehicleRentalSystem
             if (tankCapacity != null)
             {
                 this.tankCapacity = (double)tankCapacity;
+                this.hasTank = true;
+            } else
+            {
+                this.hasTank = false;
             }
+
             fuelPurchase = new FuelPurchase();
         }
 
