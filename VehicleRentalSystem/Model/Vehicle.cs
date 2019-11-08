@@ -171,9 +171,14 @@ namespace VehicleRentalSystem
             // TODO Display additional information about this vehicle
         }
 
-
-        // TODO Create an addKilometers method which takes a parameter for distance travelled 
-        // and adds it to the odometer reading.
+        /// <summary>
+        /// Increment the Odometer by a distance
+        /// </summary>
+        /// <param name="distance">Distance in kilometers</param>
+        public void addKilometers(int distance)
+        {
+            //TODO
+        }
 
         // adds fuel to the car
         public void addFuel(double litres, double price)

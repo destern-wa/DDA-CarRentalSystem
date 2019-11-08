@@ -176,5 +176,37 @@ namespace UnitTestVehicleRentalSystem
                 Assert.IsFalse(gaveError);
             }
         }
+
+        [TestMethod]
+        public void TestAddKilomters()
+        {
+            int startKm = 100;
+            int incrementKm = 5;
+            Vehicle v = new Vehicle("man", "mod", 2007, "1REG088", startKm);
+
+            v.addKilometers(incrementKm);
+
+            int expectedKm = startKm + incrementKm;
+            int actualKm = v.Odometer;
+            Assert.AreEqual(expectedKm, actualKm);
+        }
+
+        [TestMethod]
+        public void TestAddNegativeKilomters()
+        {
+            bool gaveError = false;
+            try
+            {
+                Vehicle v = new Vehicle("man", "mod", 2007, "1REG088", 1000);
+                v.addKilometers(-5);
+            } catch
+            {
+                gaveError = true;
+            }
+            finally
+            {
+                Assert.IsTrue(gaveError);
+            }
+        }
     }
 }
