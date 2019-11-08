@@ -129,7 +129,21 @@ namespace VehicleRentalSystem
             {
                 throw new Exception("Invalid year of make (can not be in the future)");
             }
-
+            // Validate registration
+            if (string.IsNullOrWhiteSpace(registration))
+            {
+                throw new Exception("Registration must be specified");
+            }
+            // Validate odometer
+            if (odometer < 0)
+            {
+                throw new Exception("Odometer reading can not be negative");
+            }
+            // Validate tankCapacity
+            if (tankCapacity != null && tankCapacity < 0)
+            {
+                throw new Exception("Tank capacity reading can not be negative");
+            }
 
             this.manufacturer = manufacturer;
             this.model = model;
