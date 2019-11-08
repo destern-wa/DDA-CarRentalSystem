@@ -94,6 +94,8 @@ namespace VehicleRentalSystem
             }
         }
 
+        //TODO: Use rental class
+
         private FuelPurchase fuelPurchase;
 
         /// <summary>

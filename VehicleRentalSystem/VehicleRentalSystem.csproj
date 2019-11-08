@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="Model\Rental.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModel\EditVehicleViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
