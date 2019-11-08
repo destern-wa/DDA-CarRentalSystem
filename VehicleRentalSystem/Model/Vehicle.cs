@@ -177,7 +177,11 @@ namespace VehicleRentalSystem
         /// <param name="distance">Distance in kilometers</param>
         public void addKilometers(int distance)
         {
-            //TODO
+            if (distance < 0)
+            {
+                throw new Exception("Distance to add to odometer must not be negative");
+            }
+            Odometer += distance;
         }
 
         // adds fuel to the car
