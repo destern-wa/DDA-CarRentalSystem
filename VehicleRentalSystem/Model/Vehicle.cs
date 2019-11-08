@@ -167,8 +167,7 @@ namespace VehicleRentalSystem
         /// </summary>
         public string printDetails()
         {
-            return "Vehicle: " + makeYear + " " + manufacturer + " " + model;
-            // TODO Display additional information about this vehicle
+            return makeYear + " " + manufacturer + " " + model + "(" + registration + ")";
         }
 
         /// <summary>
