@@ -30,8 +30,8 @@ namespace VehicleRentalSystem.ViewModel
             //_vehicleList = new List<VehicleView>()
             _vehicleList = new ObservableCollection<Vehicle>()
             {
-                new Vehicle("Make1", "mode1", 2001),
-                new Vehicle("Make2", "mode2", 2002)
+                new Vehicle("Make1", "mode1", 2001, "1REG011", 12001, 70.6),
+                new Vehicle("Make2", "mode2", 2002, "2ABC123", 35235, 56)
             };
 
             _addCommand = new DelegateCommand<string>(

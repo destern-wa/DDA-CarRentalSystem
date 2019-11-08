@@ -14,13 +14,13 @@ namespace VehicleRentalSystem
             }
         }
 
-
         private string manufacturer;
         private string model;
         private int makeYear;
-        // TODO add Registration Number 
-        // TODO add variable for OdometerReading (in KM), 
-        // TODO add variable for TankCapacity (in litres)
+        private string registration;
+        private int odometer;
+        private double tankCapacity;
+        private bool hasTank;
 
         public string Manufacturer
         {
@@ -49,31 +49,76 @@ namespace VehicleRentalSystem
                 OnPropertyChanged("Year");
             }
         }
-        public string Registration { get; set; }
-        public string Odometer { get; set; }
-        public string TankCapacity { get; set; }
-
-
+        public string Registration {
+            get => registration;
+            set {
+                registration = value;
+                OnPropertyChanged("Registration");
+            }
+        }
+        public int Odometer
+        {
+            get => odometer;
+            set
+            {
+                odometer = value;
+                OnPropertyChanged("Odometer");
+            }
+        }
+        public double TankCapacity
+        {
+            get => tankCapacity;
+            set
+            {
+                tankCapacity = value;
+                OnPropertyChanged("TankCapacity");
+            }
+        }
+        public bool HasTank
+        {
+            get => hasTank;
+            set
+            {
+                hasTank = value;
+                OnPropertyChanged("HasTank");
+            }
+        }
 
         private FuelPurchase fuelPurchase;
 
         /// <summary>
-        /// Class constructor specifying name of make (manufacturer), model and year
-        /// of make.
+        /// Class constructor for a vehicle without a fuel tank  (e.g. electric vehicles)
         /// </summary>
         /// <param name="manufacturer"></param>
         /// <param name="model"></param>
         /// <param name="makeYear"></param>
-        public Vehicle(string manufacturer, string model, int makeYear)
+        /// <param name="registration"></param>
+        /// <param name="odometer"></param>
+        public Vehicle(string manufacturer, string model, int makeYear, string registration, int odometer)
+            : this(manufacturer, model, makeYear, registration, odometer, null) { }
+
+        /// <summary>
+        /// Class constructor for a vehicle
+        /// </summary>
+        /// <param name="manufacturer"></param>
+        /// <param name="model"></param>
+        /// <param name="makeYear"></param>
+        /// <param name="registration"></param>
+        /// <param name="odometer"></param>
+        /// <param name="tankCapacity"></param>
+        public Vehicle(string manufacturer, string model, int makeYear, string registration, int odometer, double? tankCapacity)
         {
+            // Validate manufacturer
             if (string.IsNullOrWhiteSpace(manufacturer))
             {
                 throw new Exception("Manufacture must be specified");
             }
+            // Validate model
             if (string.IsNullOrWhiteSpace(model))
             {
                 throw new Exception("Model must be specified");
             }
+            // Validate makeYear
             const int OLDEST_MAKE_YEAR = 1900;
             int currentYear = DateTime.Today.Year;
             if (makeYear < OLDEST_MAKE_YEAR)
@@ -85,13 +130,18 @@ namespace VehicleRentalSystem
                 throw new Exception("Invalid year of make (can not be in the future)");
             }
 
+
             this.manufacturer = manufacturer;
             this.model = model;
             this.makeYear = makeYear;
+            this.registration = registration;
+            this.odometer = odometer;
+            if (tankCapacity != null)
+            {
+                this.tankCapacity = (double)tankCapacity;
+            }
             fuelPurchase = new FuelPurchase();
         }
-
-        // TODO Add missing getter and setter methods
 
         /// <summary>
         /// Prints details for <see cref="Vehicle"/>
@@ -104,7 +154,7 @@ namespace VehicleRentalSystem
 
 
         // TODO Create an addKilometers method which takes a parameter for distance travelled 
-        // and adds it to the odometer reading. 
+        // and adds it to the odometer reading.
 
         // adds fuel to the car
         public void addFuel(double litres, double price)

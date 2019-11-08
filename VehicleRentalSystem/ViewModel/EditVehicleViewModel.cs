@@ -93,7 +93,7 @@ namespace VehicleRentalSystem.ViewModel
         {
             try
             {
-                Vehicle v = new Vehicle(MakeName, ModelName, int.Parse(Year));
+                Vehicle v = new Vehicle(MakeName, ModelName, int.Parse(Year), "1REG0345", 1200, 50.0); // TODO: use real data instead of placeholders
                 this.eventAggregator.Publish(new Message { Vehicle = v, OldVehicle = oldVehicle });
                 return true;
             }
