@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VehicleRentalSystem.ViewModel
 {
-    class RentVehicleViewModel : ViewModelBase
+    class ReturnVehicleViewModel : ViewModelBase
     {
         private EventAggregator eventAggregator;
         private readonly DelegateCommand<string> _saveCommand;
@@ -36,57 +36,37 @@ namespace VehicleRentalSystem.ViewModel
             }
         }
 
-        private DateTime _fromDate;
-        public DateTime FromDate
+        private DateTime _returnDate;
+        public DateTime ReturnDate
         {
-            get => _fromDate;
+            get => _returnDate;
             set
             {
-                SetProperty(ref _fromDate, value);
+                SetProperty(ref _returnDate, value);
             }
         }
 
-        private DateTime _toDate;
-        public DateTime ToDate
+        private string _kmTravelled;
+        public string KmTravelled
         {
-            get => _toDate;
+            get => _kmTravelled;
             set
             {
-                SetProperty(ref _toDate, value);
+                SetProperty(ref _kmTravelled, value);
             }
         }
 
-        private bool _isRentByDay;
-        public bool IsRentByDay
-        {
-            get => _isRentByDay;
-            set
-            {
-                SetProperty(ref _isRentByDay, value);
-            }
-        }
-        public bool IsRentByKm
-        {
-            get => !_isRentByDay;
-            set
-            {
-                SetProperty(ref _isRentByDay, !value);
-            }
-        }
-
-        public RentVehicleViewModel(Vehicle vehicle, ref EventAggregator eventAggregator)
+        public ReturnVehicleViewModel(Vehicle vehicle, ref EventAggregator eventAggregator)
         {
             ErrorMessage = "";
             this.vehicle = vehicle;
             this.eventAggregator = eventAggregator;
             VehicleName = vehicle.printDetails();
-            FromDate = DateTime.Now;
-            ToDate = DateTime.Now;
-            IsRentByDay = true;
+            ReturnDate = DateTime.Now;
             _saveCommand = new DelegateCommand<string>(
                 (s) =>
                 {
-                    bool saved = SaveRental();
+                    bool saved = SaveReturn();
                     if (saved)
                     {
                         OnRequestClose();
@@ -110,12 +90,12 @@ namespace VehicleRentalSystem.ViewModel
             get => _cancelCommand;
         }
 
-        private bool SaveRental()
+        private bool SaveReturn()
         {
             try
             {
-                Rental r = new Rental(FromDate, ToDate, IsRentByDay);
-                vehicle.AddRental(r);
+                double km = double.Parse(KmTravelled);
+                vehicle.ReturnRental(ReturnDate, km);
                 this.eventAggregator.Publish(new Message { Vehicle = vehicle, Updated = true });
                 return true;
             }

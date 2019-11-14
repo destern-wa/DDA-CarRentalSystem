@@ -19,11 +19,13 @@ namespace VehicleRentalSystem.ViewModel
         private readonly DelegateCommand<string> _deleteCommand;
         private readonly DelegateCommand<string> _viewCommand;
         private readonly DelegateCommand<string> _rentCommand;
+        private readonly DelegateCommand<string> _returnCommand;
         private readonly DelegateCommand<string> _exitCommand;
 
         private EditVehicleView editVehicleWin;
         private VehicleDetailsView viewVehicleWin;
         private RentVehicleView rentVehicleWin;
+        private ReturnVehicleView returnVehicleWin;
 
         public MainViewModel(ref EventAggregator eventAggregator)
         {
@@ -57,6 +59,10 @@ namespace VehicleRentalSystem.ViewModel
                 (s) => { ShowRentVehicleDialog(SelectedVehicle); },
                 (s) => { return SelectedVehicle != null; }
             );
+            _returnCommand = new DelegateCommand<string>(
+                (s) => { ShowReturnVehicleDialog(SelectedVehicle); },
+                (s) => { return SelectedVehicle != null; }
+            );
             _exitCommand = new DelegateCommand<string>(
                 (s) => { OnRequestClose(); },
                 (s) => true
@@ -71,6 +77,7 @@ namespace VehicleRentalSystem.ViewModel
                 _deleteCommand.RaiseCanExecuteChanged();
                 _viewCommand.RaiseCanExecuteChanged();
                 _rentCommand.RaiseCanExecuteChanged();
+                _returnCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -132,6 +139,10 @@ namespace VehicleRentalSystem.ViewModel
         {
             get => _rentCommand;
         }
+        public DelegateCommand<string> ReturnVehicleClickCommand
+        {
+            get => _returnCommand;
+        }
 
         public DelegateCommand<string> ExitCommand
         {
@@ -172,48 +183,38 @@ namespace VehicleRentalSystem.ViewModel
             viewVehicleWin.ShowDialog();
         }
 
-
         private void ShowRentVehicleDialog(Vehicle vehicleToRent)
         {
             this.rentVehicleWin = new RentVehicleView(vehicleToRent, ref eventAggregator);
             rentVehicleWin.ShowDialog();
         }
 
+        private void ShowReturnVehicleDialog(Vehicle vehicleToRent)
+        {
+            this.returnVehicleWin = new ReturnVehicleView(vehicleToRent, ref eventAggregator);
+            returnVehicleWin.ShowDialog();
+        }
+
         public override void Handle(Message obj)
         {
-            Rental r = obj.Rental;
+            bool updated = obj.Updated;
             Vehicle v = obj.Vehicle;
             Vehicle old = obj.OldVehicle;
-            if (old == null && r == null)
+            if (old == null && !updated)
             {
                 Vehicles.Add(v);
                 return;
             }
-            if (r!= null)
+            int selectedVehicleIndex = -1;
+            for (int i = 0; i < Vehicles.Count; i++)
             {
-                for (int i = 0; i < Vehicles.Count; i++)
+                if (Vehicles[i].printDetails() == (old == null ? v : old).printDetails())
                 {
-                    if (Vehicles[i].printDetails() == v.printDetails())
-                    {
-                        Vehicles[i].AddRental(r);
-                        break;
-                    }
-                }
-            } else
-            {
-                for (int i=0; i<Vehicles.Count; i++ )
-                {
-                    if (Vehicles[i].printDetails() == old.printDetails())
-                    {
-                        Vehicles[i] = v;
-                        if (r != null)
-                        {
-                            v.AddRental(r);
-                        }
-                        break;
-                    }
+                    selectedVehicleIndex = i;
+                    break;
                 }
             }
+            Vehicles[selectedVehicleIndex] = v;
         }
 
         protected void OnRequestClose()

@@ -77,6 +77,6 @@ namespace VehicleRentalSystem
     {
         public Vehicle Vehicle { get; set; }
         public Vehicle OldVehicle { get; set; }
-        public Rental Rental { get; set; }
+        public bool Updated { get; set; }
     }
 }

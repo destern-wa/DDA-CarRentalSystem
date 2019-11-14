@@ -229,5 +229,11 @@ namespace VehicleRentalSystem
             OnPropertyChanged("Status");
         }
 
+        public void ReturnRental(DateTime returnDate, double kmTravlled)
+        {
+            rentals[rentals.Count - 1].returnVehicle(returnDate, kmTravlled);
+            OnPropertyChanged("Status");
+        }
+
     }
 }
