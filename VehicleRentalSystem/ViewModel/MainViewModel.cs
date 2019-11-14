@@ -20,6 +20,7 @@ namespace VehicleRentalSystem.ViewModel
         private readonly DelegateCommand<string> _viewCommand;
         private readonly DelegateCommand<string> _rentCommand;
         private readonly DelegateCommand<string> _returnCommand;
+        private readonly DelegateCommand<string> _serviceCommand;
         private readonly DelegateCommand<string> _exitCommand;
 
         private EditVehicleView editVehicleWin;
@@ -69,6 +70,10 @@ namespace VehicleRentalSystem.ViewModel
                     return SelectedVehicle.Status.StartsWith("Rent");
                 }
             );
+            _serviceCommand = new DelegateCommand<string>(
+                (s) => { ShowServiceVehicleConfirmation(SelectedVehicle); },
+                (s) => { return SelectedVehicle != null; }
+            );
             _exitCommand = new DelegateCommand<string>(
                 (s) => { OnRequestClose(); },
                 (s) => true
@@ -84,6 +89,7 @@ namespace VehicleRentalSystem.ViewModel
                 _viewCommand.RaiseCanExecuteChanged();
                 _rentCommand.RaiseCanExecuteChanged();
                 _returnCommand.RaiseCanExecuteChanged();
+                _serviceCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -149,6 +155,10 @@ namespace VehicleRentalSystem.ViewModel
         {
             get => _returnCommand;
         }
+        public DelegateCommand<string> ServiceVehicleClickCommand
+        {
+            get => _serviceCommand;
+        }
 
         public DelegateCommand<string> ExitCommand
         {
@@ -199,6 +209,20 @@ namespace VehicleRentalSystem.ViewModel
         {
             this.returnVehicleWin = new ReturnVehicleView(vehicleToRent, ref eventAggregator);
             returnVehicleWin.ShowDialog();
+        }
+
+        private void ShowServiceVehicleConfirmation(Vehicle vehicle)
+        {
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show(
+                "Mark this vehicle as serviced?",
+                "Service confirmation",
+                MessageBoxButton.YesNo
+            );
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                vehicle.recordService();
+                SelectedVehicle = vehicle;
+            }
         }
 
         public override void Handle(Message obj)

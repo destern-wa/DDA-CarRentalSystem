@@ -248,6 +248,11 @@ namespace VehicleRentalSystem
         {
             return (odometer - service.getLastServiceOdometerKm()) > Service.SERVICE_KILOMETER_LIMIT;
         }
+        public void recordService()
+        {
+            service.recordService(odometer);
+            OnPropertyChanged("Status");
+        }
 
     }
 }

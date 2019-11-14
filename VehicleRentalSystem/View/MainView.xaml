@@ -20,7 +20,9 @@
                 <MenuItem x:Name="DeleteVehicleMenuItem" Header="_Delete" Command="{Binding DeleteVehicleClickCommand}"/>
                 <Separator/>
                 <MenuItem x:Name="RentVehicleMenuItem" Header="_Rent" Command="{Binding RentVehicleClickCommand}"/>
-                <MenuItem x:Name="ReturnVehicleMenuItem" Header="_Return" Command="{Binding ReturnVehicleClickCommand}"/>
+                <MenuItem x:Name="ReturnVehicleMenuItem" Header="Retur_n" Command="{Binding ReturnVehicleClickCommand}"/>
+                <Separator/>
+                <MenuItem x:Name="ServiceVehicleMenuItem" Header="Record _service" Command="{Binding ServiceVehicleClickCommand}"/>
             </MenuItem>
             <MenuItem x:Name="AddVehicleMenuItem" Header="_Add vehicle" Command="{Binding AddVehicleClickCommand}"/>
         </Menu>
