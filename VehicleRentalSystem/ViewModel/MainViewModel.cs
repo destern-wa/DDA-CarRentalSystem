@@ -57,11 +57,17 @@ namespace VehicleRentalSystem.ViewModel
             );
             _rentCommand = new DelegateCommand<string>(
                 (s) => { ShowRentVehicleDialog(SelectedVehicle); },
-                (s) => { return SelectedVehicle != null; }
+                (s) => {
+                    if (SelectedVehicle == null) return false;
+                    return SelectedVehicle.Status == "Available";
+                }
             );
             _returnCommand = new DelegateCommand<string>(
                 (s) => { ShowReturnVehicleDialog(SelectedVehicle); },
-                (s) => { return SelectedVehicle != null; }
+                (s) => {
+                    if (SelectedVehicle == null) return false;
+                    return SelectedVehicle.Status.StartsWith("Rent");
+                }
             );
             _exitCommand = new DelegateCommand<string>(
                 (s) => { OnRequestClose(); },

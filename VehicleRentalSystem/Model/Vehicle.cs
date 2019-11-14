@@ -105,7 +105,12 @@ namespace VehicleRentalSystem
                 {
                     return "Available";
                 }
-                return rentals[countRental - 1].status();
+                string rentalStatus = rentals[countRental - 1].status();
+                if (rentalStatus == "Returned")
+                {
+                    return "Available";
+                }
+                return rentalStatus;
             }
         }
 
