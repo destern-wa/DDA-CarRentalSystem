@@ -86,5 +86,10 @@ namespace VehicleRentalSystem
         {
             return kilometers;
         }
+
+        public bool IsReturned
+        {
+            get => this.isRetuned;
+        }
     }
 }

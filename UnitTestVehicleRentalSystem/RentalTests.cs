@@ -13,6 +13,8 @@ namespace UnitTestVehicleRentalSystem
     public class RentalTests
     {
         Rental j = new Rental(DateTime.Now, DateTime.Now, true);
+        readonly double costPerDay = 100;
+        readonly double costPerKm = 1;
 
         [TestMethod]
         public void TestConstructor()
@@ -21,11 +23,165 @@ namespace UnitTestVehicleRentalSystem
         }
 
         [TestMethod]
+        public void TestConstructorBackwardsDates()
+        {
+            bool gaveError = false;
+            try
+            {
+                Rental r = new Rental(new DateTime(2019, 11, 16), new DateTime(2019, 11, 14), true);
+            }
+            catch (Exception ex)
+            {
+                gaveError = true;
+            }
+            finally
+            {
+                Assert.IsTrue(gaveError);
+            }
+        }
+
+        [TestMethod]
+        public void TestReturnVehicle()
+        {
+            double km = 123;
+            Rental r = new Rental(DateTime.Now, DateTime.Now, true);
+            r.returnVehicle(DateTime.Now, km);
+            Assert.IsTrue(r.IsReturned);
+            Assert.AreEqual(km, r.getKilometers());
+        }
+
+        [TestMethod]
+        public void TestReturnVehicleBadDate()
+        {
+            bool gaveError = false;
+            Rental r = new Rental(new DateTime(2019, 11, 10), new DateTime(2019, 11, 12), true);
+            try
+            {
+                r.returnVehicle(new DateTime(2019, 11, 5), 88);
+            }
+            catch (Exception ex)
+            {
+                gaveError = true;
+            }
+            finally
+            {
+                Assert.IsTrue(gaveError);
+            }
+        }
+
+        [TestMethod]
+        public void TestReturnVehicleNegenativeKm()
+        {
+            bool gaveError = false;
+            Rental r = new Rental(new DateTime(2019, 11, 10), new DateTime(2019, 11, 12), true);
+            try
+            {
+                r.returnVehicle(new DateTime(2019, 11, 12), -35);
+            }
+            catch (Exception ex)
+            {
+                gaveError = true;
+            }
+            finally
+            {
+                Assert.IsTrue(gaveError);
+            }
+        }
+
+        [TestMethod]
+        public void TestReturnVehicleZeroKm()
+        {
+            bool gaveError = false;
+            Rental r = new Rental(new DateTime(2019, 11, 10), new DateTime(2019, 11, 12), true);
+            try
+            {
+                r.returnVehicle(new DateTime(2019, 11, 12), 0);
+            }
+            catch (Exception ex)
+            {
+                gaveError = true;
+            }
+            finally
+            {
+                Assert.IsTrue(gaveError);
+            }
+        }
+
+        [TestMethod]
         public void TestGetKilometers()
         {
             double expectedKm = 0;
             double actualKm = j.getKilometers();
             Assert.AreEqual(expectedKm, actualKm);
+        }
+
+        [TestMethod]
+        public void TestStatusRented()
+        {
+            Rental r = new Rental(DateTime.Now, DateTime.Now, true);
+            string expectdStatus = "Rented";
+            string actualStatus = r.status();
+            Assert.AreEqual(expectdStatus, actualStatus);
+        }
+
+        [TestMethod]
+        public void TestStatusRentedOverdue()
+        {
+            Rental r = new Rental(new DateTime(2000, 1, 1), new DateTime(2000, 1, 2), true);
+            string expectdStatus = "Rented (overdue)";
+            string actualStatus = r.status();
+            Assert.AreEqual(expectdStatus, actualStatus);
+        }
+
+        [TestMethod]
+        public void TestStatusReturned()
+        {
+            Rental r = new Rental(DateTime.Now, DateTime.Now, true);
+            r.returnVehicle(DateTime.Now, 5);
+            string expectdStatus = "Returned";
+            string actualStatus = r.status();
+            Assert.AreEqual(expectdStatus, actualStatus);
+        }
+
+        [TestMethod]
+        public void TestCalculateCostSameDay()
+        {
+            Rental r = new Rental(DateTime.Now, DateTime.Now, true);
+            r.returnVehicle(DateTime.Now, 5);
+            double expectdCost = costPerDay * 1;
+            double actualCost = r.calculateCost();
+            Assert.AreEqual(expectdCost, actualCost);
+        }
+
+        [TestMethod]
+        public void TestCalculateCostNextDay()
+        {
+            Rental r = new Rental(new DateTime(2019, 11, 10), new DateTime(2019, 11, 11), true);
+            r.returnVehicle(new DateTime(2019, 11, 11), 5);
+            double expectdCost = costPerDay * 1;
+            double actualCost = r.calculateCost();
+            Assert.AreEqual(expectdCost, actualCost);
+        }
+
+        [TestMethod]
+        public void TestCalculateCostTwoDays()
+        {
+            Rental r = new Rental(new DateTime(2019, 11, 10), new DateTime(2019, 11, 12), true);
+            r.returnVehicle(new DateTime(2019, 11, 12), 5);
+            double expectdCost = costPerDay * 2;
+            double actualCost = r.calculateCost();
+            Assert.AreEqual(expectdCost, actualCost);
+        }
+
+        [TestMethod]
+        public void TestCalculateCostPerKm()
+        {
+            double km = 57.2;
+            Rental r = new Rental(DateTime.Now, DateTime.Now, false);
+            r.returnVehicle(DateTime.Now, km);
+            double expectdCost = costPerKm * km;
+            double actualCost = r.calculateCost();
+            Assert.AreEqual(expectdCost, actualCost);
         }
 
         [TestMethod]
