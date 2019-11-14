@@ -86,7 +86,7 @@ namespace VehicleRentalSystem.ViewModel
             Services = vehicle.getServicesCount.ToString();
             Revenue = String.Format("{0:C2}", vehicle.calculateRevenue());
             KmSinceLastService = vehicle.getKmSinceLastService().ToString();
-            FuelEconomy = "12L / 100km "; //FIXME: use real data
+            FuelEconomy = vehicle.calculateFuelEconomy();
             RequiresService = vehicle.needsService() ? "Yes" : "No";
         }
 

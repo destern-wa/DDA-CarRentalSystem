@@ -55,6 +55,24 @@ namespace VehicleRentalSystem.ViewModel
                 SetProperty(ref _kmTravelled, value);
             }
         }
+        private string _fuelAmount;
+        public string FuelAmount
+        {
+            get => _fuelAmount;
+            set
+            {
+                SetProperty(ref _fuelAmount, value);
+            }
+        }
+        private string _fuelCost;
+        public string FuelCost
+        {
+            get => _fuelCost;
+            set
+            {
+                SetProperty(ref _fuelCost, value);
+            }
+        }
 
         public ReturnVehicleViewModel(Vehicle vehicle, ref EventAggregator eventAggregator)
         {
@@ -95,7 +113,9 @@ namespace VehicleRentalSystem.ViewModel
             try
             {
                 double km = double.Parse(KmTravelled);
-                vehicle.ReturnRental(ReturnDate, km);
+                double fuel = double.Parse(FuelAmount);
+                double fuelcost = double.Parse(FuelCost);
+                vehicle.ReturnRental(ReturnDate, km, fuel, fuelcost);
                 this.eventAggregator.Publish(new Message { Vehicle = vehicle, Updated = true });
                 return true;
             }

@@ -237,10 +237,11 @@ namespace VehicleRentalSystem
             OnPropertyChanged("Status");
         }
 
-        public void ReturnRental(DateTime returnDate, double kmTravlled)
+        public void ReturnRental(DateTime returnDate, double kmTravlled, double fuel, double fuelcost)
         {
             rentals[rentals.Count - 1].returnVehicle(returnDate, kmTravlled);
             addKilometers((int)kmTravlled);
+            addFuel(fuel, fuelcost);
             OnPropertyChanged("Status");
         }
 
@@ -263,10 +264,25 @@ namespace VehicleRentalSystem
 
             rentals.ForEach(rental =>
             {
-                revenue += rental.calculateCost();
+                if (rental.IsReturned) revenue += rental.calculateCost();
             });
 
             return revenue;
+        }
+
+        public string calculateFuelEconomy()
+        {
+            double totalFuel = fuelPurchase.getFuel();
+            double totalKm = 0;
+            rentals.ForEach(rental =>
+            {
+                if (rental.IsReturned) totalKm += rental.getKilometers();
+            });
+
+            if (totalFuel == 0 || totalKm == 0) return "Unknown";
+
+            double economy = totalFuel / totalKm * 100;
+            return String.Format("{0:00}L / 100km", economy);
         }
 
     }

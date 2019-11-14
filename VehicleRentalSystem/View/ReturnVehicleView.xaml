@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VehicleRentalSystem.View"
         mc:Ignorable="d"
-        Title="Return vehicle" Height="300" Width="450">
+        Title="Return vehicle" Height="360" Width="450">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
@@ -30,12 +31,18 @@
         <Label Content="Km travelled" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="10,10,0,0"  VerticalAlignment="Top" Width="86" Height="26"/>
         <TextBox Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="3" Text="{Binding Path=KmTravelled}" VerticalAlignment="Top" Width="296" Height="24"/>
 
-        <Button x:Name="SubmitButton" Content="Submit" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="75"
+        <Label Content="Fuel usage" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="10,10,0,0"  VerticalAlignment="Top" Width="86" Height="26"/>
+        <TextBox Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4" Text="{Binding Path=FuelAmount}" VerticalAlignment="Top" Width="100" Height="24"/>
+        <TextBox Grid.Column="2" HorizontalAlignment="Left" Margin="206,10,0,0" Grid.Row="4" Text="{Binding Path=FuelCost}" VerticalAlignment="Top" Width="100" Height="24"/>
+        <Label Content="L" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" Margin="110,10,0,0"  VerticalAlignment="Top" Width="19" Height="26" RenderTransformOrigin="1.105,0.474"/>
+        <Label Content="Cost: $" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" Margin="155,10,0,0"  VerticalAlignment="Top" Width="51" Height="26" HorizontalContentAlignment="Right"/>
+
+        <Button x:Name="SubmitButton" Content="Submit" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="75"
                 Command="{Binding Path=SaveCommand}" CommandParameter="{Binding ElementName=lstPerson, Path=SelectedItem.Address}" Height="22"/>
-        <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Left" Margin="90,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="75"
+        <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Left" Margin="90,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="75"
                 Command="{Binding Path=CancelCommand}" Height="22" />
 
-        <Label Content="{Binding ErrorMessage}" Grid.Column="2" HorizontalAlignment="Left" Margin="10,37,0,0" Grid.Row="4" VerticalAlignment="Top" Width="306" FontSize="11" FontWeight="Bold" Foreground="Red" Height="10"/>
+        <Label Content="{Binding ErrorMessage}" Grid.Column="2" HorizontalAlignment="Left" Margin="10,37,0,0" Grid.Row="5" VerticalAlignment="Top" Width="306" FontSize="11" FontWeight="Bold" Foreground="Red" Height="10"/>
 
 
     </Grid>
