@@ -246,12 +246,27 @@ namespace VehicleRentalSystem
 
         public bool needsService()
         {
-            return (odometer - service.getLastServiceOdometerKm()) > Service.SERVICE_KILOMETER_LIMIT;
+            return this.getKmSinceLastService() > Service.SERVICE_KILOMETER_LIMIT;
         }
         public void recordService()
         {
             service.recordService(odometer);
             OnPropertyChanged("Status");
+        }
+
+        public int getServicesCount => this.service.getServiceCount();
+        public int getKmSinceLastService() => odometer - service.getLastServiceOdometerKm();
+
+        public double calculateRevenue()
+        {
+            double revenue = 0;
+
+            rentals.ForEach(rental =>
+            {
+                revenue += rental.calculateCost();
+            });
+
+            return revenue;
         }
 
     }

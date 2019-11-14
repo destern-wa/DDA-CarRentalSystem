@@ -83,11 +83,11 @@ namespace VehicleRentalSystem.ViewModel
             ManModelYear = vehicle.Manufacturer + " " + vehicle.Model + " " + vehicle.Year.ToString();
             Registration = vehicle.Registration;
             TotalKm = vehicle.Odometer.ToString() + " km";
-            Services = "4"; //FIXME: use real data
-            Revenue = "$ 5678.90"; //FIXME: use real data
-            KmSinceLastService = "123"; //FIXME: use real data
+            Services = vehicle.getServicesCount.ToString();
+            Revenue = String.Format("{0:C2}", vehicle.calculateRevenue());
+            KmSinceLastService = vehicle.getKmSinceLastService().ToString();
             FuelEconomy = "12L / 100km "; //FIXME: use real data
-            RequiresService = "No"; //FIXME: use real data
+            RequiresService = vehicle.needsService() ? "Yes" : "No";
         }
 
         public DelegateCommand<string> CloseCommand
