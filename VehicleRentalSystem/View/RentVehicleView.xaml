@@ -1,0 +1,47 @@
+﻿<Window x:Class="VehicleRentalSystem.View.RentVehicleView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VehicleRentalSystem.View"
+        mc:Ignorable="d"
+        Title="Rent vehicle" Height="360" Width="450">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="53*"/>
+            <ColumnDefinition Width="163*"/>
+            <ColumnDefinition Width="0"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Vehicle" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="50" Height="26"/>
+        <TextBox Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=VehicleName}" VerticalAlignment="Top" Width="296" IsEnabled="False" Height="22"/>
+
+        <Label Content="Rent from" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Height="26"/>
+        <DatePicker Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" SelectedDate="{Binding Path=FromDate}" VerticalAlignment="Top" Width="296" Height="24"/>
+
+        <Label Content="Due back" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="10,10,0,0"  VerticalAlignment="Top" Width="80" Height="26"/>
+        <DatePicker Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="3" SelectedDate="{Binding Path=ToDate}" VerticalAlignment="Top" Width="296" Height="24"/>
+
+        <Label Content="Rental type" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="10,10,0,0"  VerticalAlignment="Top" Width="80" Height="26"/>
+        <RadioButton Content="By day" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4" VerticalAlignment="Top" GroupName="RentalType" IsChecked="{Binding IsRentByDay}"/>
+        <RadioButton Content="By kilometre" Grid.Column="2" HorizontalAlignment="Left" Margin="10,31,0,0" Grid.Row="4" VerticalAlignment="Top" GroupName="RentalType"  IsChecked="{Binding IsRentByKm}"/>
+        
+        <Button x:Name="SubmitButton" Content="Submit" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="75"
+                Command="{Binding Path=SaveCommand}" CommandParameter="{Binding ElementName=lstPerson, Path=SelectedItem.Address}" Height="22"/>
+        <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Left" Margin="90,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="75"
+                Command="{Binding Path=CancelCommand}" Height="22" />
+
+        <Label Content="{Binding ErrorMessage}" Grid.Column="2" HorizontalAlignment="Left" Margin="10,37,0,0" Grid.Row="5" VerticalAlignment="Top" Width="306" FontSize="11" FontWeight="Bold" Foreground="Red" Height="10"/>
+        
+
+    </Grid>
+</Window>

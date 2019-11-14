@@ -18,6 +18,9 @@
                 <MenuItem Header="_View details" Command="{Binding ViewVehicleClickCommand}"/>
                 <MenuItem x:Name="EditVehicleMenuItem" Header="_Edit" Command="{Binding EditVehicleClickCommand}"/>
                 <MenuItem x:Name="DeleteVehicleMenuItem" Header="_Delete" Command="{Binding DeleteVehicleClickCommand}"/>
+                <Separator/>
+                <MenuItem x:Name="RentVehicleMenuItem" Header="_Rent" Command="{Binding RentVehicleClickCommand}"/>
+                <MenuItem x:Name="ReturnVehicleMenuItem" Header="_Return" Command="{Binding ReturnVehicleClickCommand}"/>
             </MenuItem>
             <MenuItem x:Name="AddVehicleMenuItem" Header="_Add vehicle" Command="{Binding AddVehicleClickCommand}"/>
         </Menu>
@@ -29,8 +32,9 @@
                     <GridViewColumn Width="50" Header="Year" DisplayMemberBinding="{Binding Year}" />
                     <GridViewColumn Width="150" Header="Manufacturer" DisplayMemberBinding="{Binding Manufacturer}" />
                     <GridViewColumn Width="300" Header="Model" DisplayMemberBinding="{Binding Model}" />
-                    <GridViewColumn Width="100" Header="Odometer" DisplayMemberBinding="{Binding Odometer}" />
-                    <GridViewColumn Width="100" Header="Tank Capactity" DisplayMemberBinding="{Binding TankCapacity}" />
+                    <GridViewColumn Width="100" Header="Status" DisplayMemberBinding="{Binding Status}" />
+                    <!-- GridViewColumn Width="100" Header="Odometer" DisplayMemberBinding="{Binding Odometer}" / -->
+                    <!-- GridViewColumn Width="100" Header="Tank Capactity" DisplayMemberBinding="{Binding TankCapacity}" / -->
                 </GridView>
             </ListView.View>
         </ListView>

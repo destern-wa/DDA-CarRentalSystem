@@ -18,10 +18,12 @@ namespace VehicleRentalSystem.ViewModel
         private readonly DelegateCommand<string> _editCommand;
         private readonly DelegateCommand<string> _deleteCommand;
         private readonly DelegateCommand<string> _viewCommand;
+        private readonly DelegateCommand<string> _rentCommand;
         private readonly DelegateCommand<string> _exitCommand;
 
         private EditVehicleView editVehicleWin;
         private VehicleDetailsView viewVehicleWin;
+        private RentVehicleView rentVehicleWin;
 
         public MainViewModel(ref EventAggregator eventAggregator)
         {
@@ -51,6 +53,10 @@ namespace VehicleRentalSystem.ViewModel
                 (s) => { ShowVehicleDetailsDialog(SelectedVehicle); },
                 (s) => { return SelectedVehicle != null; }
             );
+            _rentCommand = new DelegateCommand<string>(
+                (s) => { ShowRentVehicleDialog(SelectedVehicle); },
+                (s) => { return SelectedVehicle != null; }
+            );
             _exitCommand = new DelegateCommand<string>(
                 (s) => { OnRequestClose(); },
                 (s) => true
@@ -64,6 +70,7 @@ namespace VehicleRentalSystem.ViewModel
                 _editCommand.RaiseCanExecuteChanged();
                 _deleteCommand.RaiseCanExecuteChanged();
                 _viewCommand.RaiseCanExecuteChanged();
+                _rentCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -121,6 +128,10 @@ namespace VehicleRentalSystem.ViewModel
         {
             get => _viewCommand;
         }
+        public DelegateCommand<string> RentVehicleClickCommand
+        {
+            get => _rentCommand;
+        }
 
         public DelegateCommand<string> ExitCommand
         {
@@ -161,13 +172,33 @@ namespace VehicleRentalSystem.ViewModel
             viewVehicleWin.ShowDialog();
         }
 
+
+        private void ShowRentVehicleDialog(Vehicle vehicleToRent)
+        {
+            this.rentVehicleWin = new RentVehicleView(vehicleToRent, ref eventAggregator);
+            rentVehicleWin.ShowDialog();
+        }
+
         public override void Handle(Message obj)
         {
+            Rental r = obj.Rental;
             Vehicle v = obj.Vehicle;
             Vehicle old = obj.OldVehicle;
-            if (old == null)
+            if (old == null && r == null)
             {
                 Vehicles.Add(v);
+                return;
+            }
+            if (r!= null)
+            {
+                for (int i = 0; i < Vehicles.Count; i++)
+                {
+                    if (Vehicles[i].printDetails() == v.printDetails())
+                    {
+                        Vehicles[i].AddRental(r);
+                        break;
+                    }
+                }
             } else
             {
                 for (int i=0; i<Vehicles.Count; i++ )
@@ -175,6 +206,10 @@ namespace VehicleRentalSystem.ViewModel
                     if (Vehicles[i].printDetails() == old.printDetails())
                     {
                         Vehicles[i] = v;
+                        if (r != null)
+                        {
+                            v.AddRental(r);
+                        }
                         break;
                     }
                 }

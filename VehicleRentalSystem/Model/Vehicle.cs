@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace VehicleRentalSystem
@@ -21,6 +22,7 @@ namespace VehicleRentalSystem
         private int odometer;
         private double tankCapacity;
         private bool hasTank;
+        private List<Rental> rentals = new List<Rental>();
 
         public string Manufacturer
         {
@@ -93,8 +95,19 @@ namespace VehicleRentalSystem
                 OnPropertyChanged("FuelInTank");
             }
         }
-
-        //TODO: Use rental class
+        public string Status
+        {
+            get
+            {
+                if (rentals == null) return "Available";
+                int countRental = rentals.Count;
+                if (countRental == 0)
+                {
+                    return "Available";
+                }
+                return rentals[countRental - 1].status();
+            }
+        }
 
         private FuelPurchase fuelPurchase;
 
@@ -208,6 +221,12 @@ namespace VehicleRentalSystem
             if (!hasTank) return false;
             double FILLED_TANK_TOLERANCE = 5;
             return fuelInTank < (tankCapacity - FILLED_TANK_TOLERANCE);
+        }
+
+        public void AddRental(Rental r)
+        {
+            this.rentals.Add(r);
+            OnPropertyChanged("Status");
         }
 
     }

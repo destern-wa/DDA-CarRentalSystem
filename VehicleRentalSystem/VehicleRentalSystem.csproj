@@ -63,7 +63,11 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="Model\Service.cs" />
     <Compile Include="Model\Vehicle.cs" />
+    <Compile Include="ViewModel\RentVehicleViewModel.cs" />
     <Compile Include="ViewModel\VehicleDetailsViewModel.cs" />
+    <Compile Include="View\RentVehicleView.xaml.cs">
+      <DependentUpon>RentVehicleView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\VehicleDetailsView.xaml.cs">
       <DependentUpon>VehicleDetailsView.xaml</DependentUpon>
     </Compile>
@@ -80,7 +84,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\FuelPurchase.cs" />
-    <Compile Include="Model\Journey.cs" />
     <Compile Include="View\EditVehicleView.xaml.cs">
       <DependentUpon>EditVehicleView.xaml</DependentUpon>
     </Compile>
@@ -88,6 +91,10 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\RentVehicleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\VehicleDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

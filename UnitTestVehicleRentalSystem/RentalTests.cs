@@ -10,9 +10,9 @@ namespace UnitTestVehicleRentalSystem
     /// Summary description for UnitTest1
     /// </summary>
     [TestClass]
-    public class JourneyTests
+    public class RentalTests
     {
-        Journey j = new Journey();
+        Rental j = new Rental(DateTime.Now, DateTime.Now, true);
 
         [TestMethod]
         public void TestConstructor()

@@ -4,32 +4,82 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VehicleRentalSystem.Model
+namespace VehicleRentalSystem
 {
-    class Rental
+    public class Rental // aka Journey
     {
         private DateTime rentedDate;
         private DateTime expectedReturnDate;
         private DateTime returnedDate;
-        private List<string> rentalTypes = new List<string> { "byDay", "byKilometer" };
-        private string rentalType;
+        private bool isRetuned;
+        private bool isPerDayRental; // false means is rented per km
+        private readonly double COST_PER_DAY = 100; // dollars
+        private readonly double COST_PER_KM = 1; // dollars
+        private double kilometers;
 
-        public Rental(DateTime from, DateTime to, string type)
+        public Rental(DateTime from, DateTime to, bool isPerDayRental)
         {
-            this.rentedDate = from;
-            this.expectedReturnDate = to;
-            this.rentalType = type;
+            rentedDate = from;
+            expectedReturnDate = to;
+            this.isPerDayRental = isPerDayRental;
+            this.kilometers = 0;
         }
 
         public string status() {
-            if (returnedDate == null)
+            if (isRetuned)
             {
-                return "Rented";
-            }
-            else
+                return "Returned";
+            } else
             {
-                return "available"
+                string status = "Rented";
+                if ((DateTime.Now - expectedReturnDate).Days > 0)
+                {
+                    status += " (overdue)";
+                }
+                return status;
             }
+        }
+
+        public void returnVehicle(DateTime returnDate, double kmTravelled)
+        {
+            returnedDate = DateTime.Now;
+            isRetuned = true;
+            addKilometers(kmTravelled);
+        }
+
+        public double calculateCost()
+        {
+            if (isPerDayRental)
+            {
+                int days = (returnedDate - rentedDate).Days;
+                if (days == 0) days = 1; // Min period is 1 day
+                return days * COST_PER_DAY;
+            } else
+            {
+                return kilometers * COST_PER_KM;
+            }
+        }
+
+        /// <summary>
+        /// Appends the distance parameter to <see cref="kilometers"/>
+        /// </summary>
+        /// <param name="kilometers"></param>
+        public void addKilometers(double kilometers)
+        {
+            if (kilometers <= 0)
+            {
+                throw new Exception("Distance to add must be greater than 0");
+            }
+            this.kilometers += kilometers;
+        }
+
+        /// <summary>
+        /// Getter method for total Kilometers traveled in this journey.
+        /// </summary>
+        /// <returns><see cref="kilometers"/></returns>
+        public double getKilometers()
+        {
+            return kilometers;
         }
     }
 }
