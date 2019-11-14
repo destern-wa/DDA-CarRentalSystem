@@ -16,52 +16,6 @@ namespace UnitTestVehicleRentalSystem
         }
 
         [TestMethod]
-        public void TestSetFuelEconomy()
-        {
-            double exampleFuelEconomy = 1.01;
-            fp.setFuelEconomy(exampleFuelEconomy);
-
-            double actualFuelEconomy = fp.getFuelEconomy();
-            Assert.AreEqual(exampleFuelEconomy, actualFuelEconomy);
-        }
-
-        [TestMethod]
-        public void TestSetFuelEconomyZero()
-        {
-            bool gaveError = false;
-            try
-            {
-                fp.setFuelEconomy(0);
-            }
-            catch
-            {
-                gaveError = true;
-            }
-            finally
-            {
-                Assert.IsTrue(gaveError);
-            }
-        }
-
-        [TestMethod]
-        public void TestSetFuelEconomyNegative()
-        {
-            bool gaveError = false;
-            try
-            {
-                fp.setFuelEconomy(-1.10);
-            }
-            catch
-            {
-                gaveError = true;
-            }
-            finally
-            {
-                Assert.IsTrue(gaveError);
-            }
-        }
-
-        [TestMethod]
         public void TestPurchaseFuel()
         {
             fp.purchaseFuel(1.01, 2.02);

@@ -200,7 +200,7 @@ namespace VehicleRentalSystem
         /// </summary>
         public string printDetails()
         {
-            return makeYear + " " + manufacturer + " " + model + "(" + registration + ")";
+            return makeYear + " " + manufacturer + " " + model + " (" + registration + ")";
         }
 
         /// <summary>
@@ -284,6 +284,5 @@ namespace VehicleRentalSystem
             double economy = totalFuel / totalKm * 100;
             return String.Format("{0:00}L / 100km", economy);
         }
-
     }
 }

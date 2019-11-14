@@ -9,7 +9,7 @@ namespace VehicleRentalSystem
 
         private int lastServiceOdometerKm = 0;
         private int serviceCount = 0;
-        // TODO add lastServiceDate
+        private DateTime lastServiceDate;
 
         // return the last service
         public int getLastServiceOdometerKm()
@@ -26,6 +26,7 @@ namespace VehicleRentalSystem
         {
             this.lastServiceOdometerKm = distance;
             this.serviceCount++;
+            lastServiceDate = DateTime.Now;
         }
 
         // return how many services the car has had

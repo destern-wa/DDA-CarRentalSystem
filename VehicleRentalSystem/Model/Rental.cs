@@ -56,8 +56,8 @@ namespace VehicleRentalSystem
             {
                 throw new Exception("Return date must not be prior to the rental start date");
             }
-            isRetuned = true;
             addKilometers(kmTravelled);
+            isRetuned = true;
         }
 
         public double calculateCost()
