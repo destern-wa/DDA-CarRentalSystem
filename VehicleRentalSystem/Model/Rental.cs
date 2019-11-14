@@ -26,6 +26,10 @@ namespace VehicleRentalSystem
         {
             rentedDate = DateWithoutTime(from);
             expectedReturnDate = DateWithoutTime(to);
+            if (expectedReturnDate < rentedDate)
+            {
+                throw new Exception("Expected return date must not be prior to the rental start date");
+            }
             this.isPerDayRental = isPerDayRental;
             this.kilometers = 0;
         }
@@ -47,7 +51,11 @@ namespace VehicleRentalSystem
 
         public void returnVehicle(DateTime returnDate, double kmTravelled)
         {
-            returnedDate = DateWithoutTime(DateTime.Now);
+            this.returnedDate = DateWithoutTime(returnDate);
+            if (returnedDate < rentedDate)
+            {
+                throw new Exception("Return date must not be prior to the rental start date");
+            }
             isRetuned = true;
             addKilometers(kmTravelled);
         }
