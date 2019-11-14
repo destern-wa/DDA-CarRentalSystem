@@ -17,10 +17,15 @@ namespace VehicleRentalSystem
         private readonly double COST_PER_KM = 1; // dollars
         private double kilometers;
 
+        private DateTime DateWithoutTime(DateTime d)
+        {
+            return new DateTime(d.Year, d.Month, d.Day);
+        }
+
         public Rental(DateTime from, DateTime to, bool isPerDayRental)
         {
-            rentedDate = from;
-            expectedReturnDate = to;
+            rentedDate = DateWithoutTime(from);
+            expectedReturnDate = DateWithoutTime(to);
             this.isPerDayRental = isPerDayRental;
             this.kilometers = 0;
         }
@@ -32,7 +37,7 @@ namespace VehicleRentalSystem
             } else
             {
                 string status = "Rented";
-                if ((DateTime.Now - expectedReturnDate).Days > 0)
+                if ((DateWithoutTime(DateTime.Now) - expectedReturnDate).Days > 0)
                 {
                     status += " (overdue)";
                 }
@@ -42,7 +47,7 @@ namespace VehicleRentalSystem
 
         public void returnVehicle(DateTime returnDate, double kmTravelled)
         {
-            returnedDate = DateTime.Now;
+            returnedDate = DateWithoutTime(DateTime.Now);
             isRetuned = true;
             addKilometers(kmTravelled);
         }
