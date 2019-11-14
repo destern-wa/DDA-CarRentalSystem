@@ -43,5 +43,6 @@ namespace VehicleRentalSystem
         {
             return (int)Math.Floor( (double)(lastServiceOdometerKm / SERVICE_KILOMETER_LIMIT) );
         }
+
     }
 }

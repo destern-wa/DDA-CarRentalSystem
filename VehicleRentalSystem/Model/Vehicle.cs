@@ -99,6 +99,7 @@ namespace VehicleRentalSystem
         {
             get
             {
+                if (needsService()) return "Needs service";
                 if (rentals == null) return "Available";
                 int countRental = rentals.Count;
                 if (countRental == 0)
@@ -115,6 +116,7 @@ namespace VehicleRentalSystem
         }
 
         private FuelPurchase fuelPurchase;
+        private Service service;
 
         /// <summary>
         /// Class constructor for a vehicle without a fuel tank  (e.g. electric vehicles)
@@ -190,6 +192,7 @@ namespace VehicleRentalSystem
             }
 
             fuelPurchase = new FuelPurchase();
+            service = new Service();
         }
 
         /// <summary>
@@ -237,7 +240,13 @@ namespace VehicleRentalSystem
         public void ReturnRental(DateTime returnDate, double kmTravlled)
         {
             rentals[rentals.Count - 1].returnVehicle(returnDate, kmTravlled);
+            addKilometers((int)kmTravlled);
             OnPropertyChanged("Status");
+        }
+
+        public bool needsService()
+        {
+            return (odometer - service.getLastServiceOdometerKm()) > Service.SERVICE_KILOMETER_LIMIT;
         }
 
     }
