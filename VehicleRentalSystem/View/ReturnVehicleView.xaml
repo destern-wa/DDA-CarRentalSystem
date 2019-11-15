@@ -42,7 +42,7 @@
         <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Left" Margin="90,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="75"
                 Command="{Binding Path=CancelCommand}" Height="22" />
 
-        <Label Content="{Binding ErrorMessage}" Grid.Column="2" HorizontalAlignment="Left" Margin="10,37,0,0" Grid.Row="5" VerticalAlignment="Top" Width="306" FontSize="11" FontWeight="Bold" Foreground="Red" Height="10"/>
+        <Label Content="{Binding ErrorMessage}" Grid.Column="2" HorizontalAlignment="Left" Margin="10,32,0,0" Grid.Row="5" VerticalAlignment="Top" Width="306" FontSize="11" FontWeight="Bold" Foreground="Red" Height="28"/>
 
 
     </Grid>

@@ -34,14 +34,14 @@
         <Label Content="Rental type" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="10,10,0,0"  VerticalAlignment="Top" Width="80" Height="26"/>
         <RadioButton Content="By day" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4" VerticalAlignment="Top" GroupName="RentalType" IsChecked="{Binding IsRentByDay}"/>
         <RadioButton Content="By kilometre" Grid.Column="2" HorizontalAlignment="Left" Margin="10,31,0,0" Grid.Row="4" VerticalAlignment="Top" GroupName="RentalType"  IsChecked="{Binding IsRentByKm}"/>
-        
+
         <Button x:Name="SubmitButton" Content="Submit" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="75"
                 Command="{Binding Path=SaveCommand}" CommandParameter="{Binding ElementName=lstPerson, Path=SelectedItem.Address}" Height="22"/>
         <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Left" Margin="90,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="75"
                 Command="{Binding Path=CancelCommand}" Height="22" />
 
-        <Label Content="{Binding ErrorMessage}" Grid.Column="2" HorizontalAlignment="Left" Margin="10,37,0,0" Grid.Row="5" VerticalAlignment="Top" Width="306" FontSize="11" FontWeight="Bold" Foreground="Red" Height="10"/>
-        
+        <Label Content="{Binding ErrorMessage}" Grid.Column="2" HorizontalAlignment="Left" Margin="10,32,0,0" Grid.Row="5" VerticalAlignment="Top" Width="306" FontSize="11" FontWeight="Bold" Foreground="Red" Height="28"/>
+
 
     </Grid>
 </Window>
