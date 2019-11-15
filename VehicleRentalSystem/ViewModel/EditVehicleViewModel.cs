@@ -22,6 +22,61 @@ namespace VehicleRentalSystem.ViewModel
             }
         }
 
+        private string _errorMessageMake;
+        public string ErrorMessageMake
+        {
+            get => _errorMessageMake;
+            set
+            {
+                SetProperty(ref _errorMessageMake, value);
+            }
+        }
+        private string _errorMessageModel;
+        public string ErrorMessageModel
+        {
+            get => _errorMessageModel;
+            set
+            {
+                SetProperty(ref _errorMessageModel, value);
+            }
+        }
+        private string _errorMessageYear;
+        public string ErrorMessageYear
+        {
+            get => _errorMessageYear;
+            set
+            {
+                SetProperty(ref _errorMessageYear, value);
+            }
+        }
+        private string _errorMessageRegistration;
+        public string ErrorMessageRegistration
+        {
+            get => _errorMessageRegistration;
+            set
+            {
+                SetProperty(ref _errorMessageRegistration, value);
+            }
+        }
+        private string _errorMessageOdometer;
+        public string ErrorMessageOdometer
+        {
+            get => _errorMessageOdometer;
+            set
+            {
+                SetProperty(ref _errorMessageOdometer, value);
+            }
+        }
+        private string _errorMessageTankCapacity;
+        public string ErrorMessageTankCapacity
+        {
+            get => _errorMessageTankCapacity;
+            set
+            {
+                SetProperty(ref _errorMessageTankCapacity, value);
+            }
+        }
+
         private string _makeName;
         public string MakeName
         {
@@ -119,8 +174,71 @@ namespace VehicleRentalSystem.ViewModel
             get => _cancelCommand;
         }
 
+        private bool validate()
+        {
+            // Reset any old error message set from SaveVehicle() method
+            ErrorMessage = ""; 
+
+            // Validate make
+            ErrorMessageMake = String.IsNullOrWhiteSpace(MakeName) ? "Make name is required" : "";
+
+            // Validate model
+            ErrorMessageModel = String.IsNullOrWhiteSpace(ModelName) ? "Model name is required" : "";
+
+            // Validate year
+            int yearInt = -1;
+            ErrorMessageYear = String.IsNullOrWhiteSpace(Year)
+                ? "Year is required"
+                : (int.TryParse(Year, out yearInt) ? "" : "Year must be an integer numer");
+            if (ErrorMessageYear == "")
+            {
+                ErrorMessageYear = yearInt < 1900
+                    ? "Invalid year (too old)"
+                    : (yearInt > DateTime.Now.Year ? "Year can not be in the future" : "");
+            }
+
+            // Validate registration
+            ErrorMessageRegistration = String.IsNullOrWhiteSpace(Registration) ? "Registration is required" : "";
+
+            // Validate odometer
+            int odometerInt = -1;
+            ErrorMessageOdometer = String.IsNullOrWhiteSpace(Odometer)
+                ? "Odometer reading is required"
+                : (int.TryParse(Odometer, out odometerInt) ? "" : "Odometer must be an ineteger number");
+            if (ErrorMessageOdometer == "")
+            {
+                ErrorMessageOdometer = odometerInt < 0 ? "Odometer reading can not be negative" : "";
+            }
+
+            // Validate trank capacity
+            bool hasTank = !(String.IsNullOrWhiteSpace(TankCapacity));
+            if (hasTank)
+            {
+                double tankCapacityNum = -1;
+                ErrorMessageTankCapacity = double.TryParse(TankCapacity, out tankCapacityNum) ? "" : "Odometer must be numeric";
+                if (ErrorMessageTankCapacity == "")
+                {
+                    ErrorMessageTankCapacity = tankCapacityNum < 0 ? "Tank capacity can not be negative" : "";
+                }
+            } else {
+                ErrorMessageTankCapacity = "";
+            }
+
+            // Is valid if all error messages are empty
+            return (
+                ErrorMessageMake == "" &&
+                ErrorMessageModel == "" &&
+                ErrorMessageYear == "" &&
+                ErrorMessageRegistration == "" &&
+                ErrorMessageOdometer == "" &&
+                ErrorMessageTankCapacity == ""
+            );
+        }
+
         private bool SaveVehicle()
         {
+            bool valid = validate();
+            if (!valid) return false;
             try
             {
                 Vehicle v;
