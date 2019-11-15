@@ -35,6 +35,24 @@ namespace VehicleRentalSystem.ViewModel
                 SetProperty(ref _errorMessage, value);
             }
         }
+        private string _errorMessageToDate;
+        public string ErrorMessageToDate
+        {
+            get => _errorMessageToDate;
+            set
+            {
+                SetProperty(ref _errorMessageToDate, value);
+            }
+        }
+        private string _errorMessageFromDate;
+        public string ErrorMessageFromDate
+        {
+            get => _errorMessageFromDate;
+            set
+            {
+                SetProperty(ref _errorMessageFromDate, value);
+            }
+        }
 
         private DateTime _fromDate;
         public DateTime FromDate
@@ -110,8 +128,19 @@ namespace VehicleRentalSystem.ViewModel
             get => _cancelCommand;
         }
 
+        private bool validate()
+        {
+            ErrorMessage = "";
+            ErrorMessageFromDate = FromDate > DateTime.Now ? "Rental date can not be in the future" : "";
+            ErrorMessageToDate = FromDate > ToDate ? "Vehicle can not be due back before it is rented" : "";
+
+            return ErrorMessageFromDate == "" && ErrorMessageToDate == "";
+        }
+
         private bool SaveRental()
         {
+            bool isValid = validate();
+            if (!isValid) return false;
             try
             {
                 Rental r = new Rental(FromDate, ToDate, IsRentByDay);

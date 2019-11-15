@@ -27,9 +27,11 @@
 
         <Label Content="Rent from" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Height="26"/>
         <DatePicker Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" SelectedDate="{Binding Path=FromDate}" VerticalAlignment="Top" Width="296" Height="24"/>
+        <Label Content="{Binding ErrorMessageFromDate}" Grid.Column="2" HorizontalAlignment="Left" Margin="10,32,0,0" Grid.Row="2" VerticalAlignment="Top" Width="306" FontSize="11" FontWeight="Bold" Foreground="Red" Height="28"/>
 
         <Label Content="Due back" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="10,10,0,0"  VerticalAlignment="Top" Width="80" Height="26"/>
         <DatePicker Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="3" SelectedDate="{Binding Path=ToDate}" VerticalAlignment="Top" Width="296" Height="24"/>
+        <Label Content="{Binding ErrorMessageToDate}" Grid.Column="2" HorizontalAlignment="Left" Margin="10,32,0,0" Grid.Row="3" VerticalAlignment="Top" Width="306" FontSize="11" FontWeight="Bold" Foreground="Red" Height="28"/>
 
         <Label Content="Rental type" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="10,10,0,0"  VerticalAlignment="Top" Width="80" Height="26"/>
         <RadioButton Content="By day" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4" VerticalAlignment="Top" GroupName="RentalType" IsChecked="{Binding IsRentByDay}"/>
