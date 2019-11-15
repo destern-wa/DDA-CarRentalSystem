@@ -19,6 +19,11 @@ namespace VehicleRentalSystem.View
     /// </summary>
     public partial class ReturnVehicleView : Window
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="vehicle">Vehicle to be returned</param>
+        /// <param name="eventAggregator">Event aggregator for passing information to another viewmodel</param>
         public ReturnVehicleView(Vehicle vehicle, ref EventAggregator eventAggregator)
         {
             InitializeComponent();

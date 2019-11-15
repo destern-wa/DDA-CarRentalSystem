@@ -1,27 +1,62 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VehicleRentalSystem
 {
-    public class Rental // aka Journey
+    /// <summary>
+    /// Class for recording rentals (aka journeys)
+    /// </summary>
+    public class Rental
     {
+        /// <summary>
+        /// Date vehicle rented out
+        /// </summary>
         private DateTime rentedDate;
+        /// <summary>
+        /// Date vehicle is expected back
+        /// </summary>
         private DateTime expectedReturnDate;
+        /// <summary>
+        /// Date vehicle is actually returned
+        /// </summary>
         private DateTime returnedDate;
+        /// <summary>
+        /// Is vehicle returned
+        /// </summary>
         private bool isRetuned;
-        private bool isPerDayRental; // false means is rented per km
-        private readonly double COST_PER_DAY = 100; // dollars
-        private readonly double COST_PER_KM = 1; // dollars
+        /// <summary>
+        /// Is vehicle rented per day. False means it is rented per kilometer
+        /// </summary>
+        private bool isPerDayRental;
+        /// <summary>
+        /// Rental cost, dollars per day
+        /// </summary>
+        private readonly double COST_PER_DAY = 100;
+        /// <summary>
+        /// Rental cost, dollars per kilometer
+        /// </summary>
+        private readonly double COST_PER_KM = 1;
+        /// <summary>
+        /// Kilometres travelled on the journey
+        /// </summary>
         private double kilometers;
 
+        /// <summary>
+        /// Converts a DateTime object into an equvilent DateTime object with the time component set to midnight.
+        /// This allows easier comparasion and duration calculations.
+        /// </summary>
+        /// <param name="d">Original DateTime object</param>
+        /// <returns></returns>
         private DateTime DateWithoutTime(DateTime d)
         {
             return new DateTime(d.Year, d.Month, d.Day);
         }
 
+        /// <summary>
+        /// Constructor for a rental.
+        /// </summary>
+        /// <param name="from">Date to rent from</param>
+        /// <param name="to">Expected date of return</param>
+        /// <param name="isPerDayRental">Is rented per day; false means rented per kilometer</param>
         public Rental(DateTime from, DateTime to, bool isPerDayRental)
         {
             rentedDate = DateWithoutTime(from);
@@ -34,6 +69,10 @@ namespace VehicleRentalSystem
             this.kilometers = 0;
         }
 
+        /// <summary>
+        /// Gets the current rental status
+        /// </summary>
+        /// <returns>Rental status</returns>
         public string status() {
             if (isRetuned)
             {
@@ -49,6 +88,11 @@ namespace VehicleRentalSystem
             }
         }
 
+        /// <summary>
+        /// Mark rental as returned
+        /// </summary>
+        /// <param name="returnDate">Date vehicle returned</param>
+        /// <param name="kmTravelled">Kilomters travelled</param>
         public void returnVehicle(DateTime returnDate, double kmTravelled)
         {
             this.returnedDate = DateWithoutTime(returnDate);
@@ -60,6 +104,10 @@ namespace VehicleRentalSystem
             isRetuned = true;
         }
 
+        /// <summary>
+        /// Calculate cost of the rental
+        /// </summary>
+        /// <returns>Cost in dollars</returns>
         public double calculateCost()
         {
             if (isPerDayRental)
@@ -74,7 +122,7 @@ namespace VehicleRentalSystem
         }
 
         /// <summary>
-        /// Appends the distance parameter to <see cref="kilometers"/>
+        /// Appends the distance to the <see cref="kilometers"/>
         /// </summary>
         /// <param name="kilometers"></param>
         public void addKilometers(double kilometers)
@@ -95,6 +143,9 @@ namespace VehicleRentalSystem
             return kilometers;
         }
 
+        /// <summary>
+        /// Getter method for if the vehicle has been returned
+        /// </summary>
         public bool IsReturned
         {
             get => this.isRetuned;

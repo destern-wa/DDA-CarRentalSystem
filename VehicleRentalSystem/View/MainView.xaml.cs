@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using VehicleRentalSystem.ViewModel;
 namespace VehicleRentalSystem.View
 {
     /// <summary>
@@ -7,12 +6,13 @@ namespace VehicleRentalSystem.View
     /// </summary>
     public partial class MainView : Window
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="eventAggregator">Event aggregator for passing information between viewmodels</param>
         public MainView(ref EventAggregator eventAggregator)
         {
             InitializeComponent();
-            //MainViewModel ViewModel = new MainViewModel(ref eventAggregator, (s, e) => this.Close());
-            ////ViewModel.RequestClose += (s, e) => this.Close();
-            //this.DataContext = ViewModel;
         }
     }
 }

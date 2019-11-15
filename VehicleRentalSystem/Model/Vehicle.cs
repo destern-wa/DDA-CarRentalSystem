@@ -4,9 +4,19 @@ using System.ComponentModel;
 
 namespace VehicleRentalSystem
 {
+    /// <summary>
+    /// Class for vehicles which will be rented out
+    /// </summary>
     public class Vehicle : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Event for MVVM-style property change handling
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+        /// <summary>
+        /// Method that notifies ViewModel that a property has changed
+        /// </summary>
+        /// <param name="propertyName">Name of property</param>
         public void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -15,15 +25,41 @@ namespace VehicleRentalSystem
             }
         }
 
+        /// <summary>
+        /// Manufacturer name
+        /// </summary>
         private string manufacturer;
+        /// <summary>
+        /// Model name
+        /// </summary>
         private string model;
+        /// <summary>
+        /// Year of vehicle
+        /// </summary>
         private int makeYear;
+        /// <summary>
+        /// Registration (licence plate) number
+        /// </summary>
         private string registration;
+        /// <summary>
+        /// Odometer reading, in kilometers
+        /// </summary>
         private int odometer;
+        /// <summary>
+        /// Fuel tank capacity, in litres
+        /// </summary>
         private double tankCapacity;
+        /// <summary>
+        /// The vehicle has a fuel tank
+        /// </summary>
         private bool hasTank;
+        /// <summary>
+        /// Rentals for this vehicle
+        /// </summary>
         private List<Rental> rentals = new List<Rental>();
-
+        /// <summary>
+        /// Getter/setter mthods for manufacturer name
+        /// </summary>
         public string Manufacturer
         {
             get => manufacturer;
@@ -33,6 +69,9 @@ namespace VehicleRentalSystem
                 OnPropertyChanged("Manufacturer");
             }
         }
+        /// <summary>
+        /// Getter/setter mthods for model name
+        /// </summary>
         public string Model
         {
             get => model;
@@ -42,6 +81,9 @@ namespace VehicleRentalSystem
                 OnPropertyChanged("Model");
             }
         }
+        /// <summary>
+        /// Getter/setter mthods for year of vehicle
+        /// </summary>
         public int Year
         {
             get => makeYear;
@@ -51,6 +93,9 @@ namespace VehicleRentalSystem
                 OnPropertyChanged("Year");
             }
         }
+        /// <summary>
+        /// Getter/setter mthods for registration number
+        /// </summary>
         public string Registration {
             get => registration;
             set {
@@ -58,6 +103,9 @@ namespace VehicleRentalSystem
                 OnPropertyChanged("Registration");
             }
         }
+        /// <summary>
+        /// Getter/setter mthods for odometer reading
+        /// </summary>
         public int Odometer
         {
             get => odometer;
@@ -67,6 +115,9 @@ namespace VehicleRentalSystem
                 OnPropertyChanged("Odometer");
             }
         }
+        /// <summary>
+        /// Getter/Setter methods for fuel tank capacity, in litres
+        /// </summary>
         public double TankCapacity
         {
             get => tankCapacity;
@@ -76,6 +127,9 @@ namespace VehicleRentalSystem
                 OnPropertyChanged("TankCapacity");
             }
         }
+        /// <summary>
+        /// Getter/setter methods for if the vehicle has a fuel tank
+        /// </summary>
         public bool HasTank
         {
             get => hasTank;
@@ -85,7 +139,13 @@ namespace VehicleRentalSystem
                 OnPropertyChanged("HasTank");
             }
         }
+        /// <summary>
+        /// Fuel level of tank, in litres
+        /// </summary>
         private double fuelInTank = 0;
+        /// <summary>
+        /// Getter/setter methods for fuel level of tank, in litres
+        /// </summary>
         public double FuelInTank
         {
             get => fuelInTank;
@@ -95,6 +155,9 @@ namespace VehicleRentalSystem
                 OnPropertyChanged("FuelInTank");
             }
         }
+        /// <summary>
+        /// Current status/availability of vehicle
+        /// </summary>
         public string Status
         {
             get
@@ -115,7 +178,14 @@ namespace VehicleRentalSystem
             }
         }
 
+        /// <summary>
+        /// Fuel pruchases for the vehicle
+        /// </summary>
         private FuelPurchase fuelPurchase;
+
+        /// <summary>
+        /// Services for the vehicle
+        /// </summary>
         private Service service;
 
         /// <summary>
@@ -216,14 +286,21 @@ namespace VehicleRentalSystem
             Odometer += distance;
         }
 
-        // adds fuel to the car
+        /// <summary>
+        /// Adds fuel to the car
+        /// </summary>
+        /// <param name="litres"></param>
+        /// <param name="price"></param>
         public void addFuel(double litres, double price)
         {
             fuelPurchase.purchaseFuel(litres, price);
             fuelInTank += litres;
         }
 
-        // check if car needs fuel
+        /// <summary>
+        /// Check if car needs fuel
+        /// </summary>
+        /// <returns>Car needs fuel</returns>
         public bool needsFuel()
         {
             if (!hasTank) return false;
@@ -231,12 +308,23 @@ namespace VehicleRentalSystem
             return fuelInTank < (tankCapacity - FILLED_TANK_TOLERANCE);
         }
 
+        /// <summary>
+        /// Add a new rental record to the vehicle
+        /// </summary>
+        /// <param name="r">Rental record</param>
         public void AddRental(Rental r)
         {
             this.rentals.Add(r);
             OnPropertyChanged("Status");
         }
 
+        /// <summary>
+        /// Mark the last rental as returned
+        /// </summary>
+        /// <param name="returnDate">Date of return</param>
+        /// <param name="kmTravlled">Kilometres travelled</param>
+        /// <param name="fuel">Amount of fuel purchased, in litres</param>
+        /// <param name="fuelcost">Cost of fuel, in dollars</param>
         public void ReturnRental(DateTime returnDate, double kmTravlled, double fuel, double fuelcost)
         {
             rentals[rentals.Count - 1].returnVehicle(returnDate, kmTravlled);
@@ -245,19 +333,39 @@ namespace VehicleRentalSystem
             OnPropertyChanged("Status");
         }
 
+        /// <summary>
+        /// Check if the vehicle needs a service
+        /// </summary>
+        /// <returns>Vehicle needs a service</returns>
         public bool needsService()
         {
             return this.getKmSinceLastService() > Service.SERVICE_KILOMETER_LIMIT;
         }
+
+        /// <summary>
+        /// Record that vehcile has been serviced
+        /// </summary>
         public void recordService()
         {
             service.recordService(odometer);
             OnPropertyChanged("Status");
         }
 
+        /// <summary>
+        /// Get the number of services the vehicle has had
+        /// </summary>
         public int getServicesCount => this.service.getServiceCount();
+
+        /// <summary>
+        /// Get the number of kilometres travelled since last service
+        /// </summary>
+        /// <returns>kilometres travelled since last service</returns>
         public int getKmSinceLastService() => odometer - service.getLastServiceOdometerKm();
 
+        /// <summary>
+        /// Calculate the revenue from this vehicle's rentals
+        /// </summary>
+        /// <returns>Rental revenue, in dollars</returns>
         public double calculateRevenue()
         {
             double revenue = 0;
@@ -270,6 +378,10 @@ namespace VehicleRentalSystem
             return revenue;
         }
 
+        /// <summary>
+        /// Calculate fuel economy based on total fuel consumption and total distance travelled
+        /// </summary>
+        /// <returns>fuel economy, litres per 100km</returns>
         public string calculateFuelEconomy()
         {
             double totalFuel = fuelPurchase.getFuel();

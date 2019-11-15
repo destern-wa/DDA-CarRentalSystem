@@ -8,6 +8,10 @@ namespace VehicleRentalSystem.View
     /// </summary>
     public partial class VehicleDetailsView : Window
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="vehicle">Vehicle to show details of</param>
         public VehicleDetailsView(Vehicle vehicle)
         {
             InitializeComponent();
