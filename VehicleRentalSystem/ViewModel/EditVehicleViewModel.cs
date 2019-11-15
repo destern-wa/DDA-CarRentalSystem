@@ -2,17 +2,42 @@
 
 namespace VehicleRentalSystem.ViewModel
 {
+    /// <summary>
+    /// View model for EditVehicleView
+    /// </summary>
     class EditVehicleViewModel : ViewModelBase
     {
+        /// <summary>
+        /// Event aggregator for passing messages to other view models
+        /// </summary>
         private EventAggregator eventAggregator;
+        /// <summary>
+        /// Command for saving
+        /// </summary>
         private readonly DelegateCommand<string> _saveCommand;
+        /// <summary>
+        /// Command for closing
+        /// </summary>
         private readonly DelegateCommand<string> _cancelCommand;
 
         // MVVM window closing per Andrew's comment in https://social.msdn.microsoft.com/Forums/en-US/17aabea0-4aca-478f-9205-fcd56080b22a/how-to-close-a-window-by-clicking-the-button-using-mvvm?forum=wpf
+        /// <summary>
+        /// Handler to call to tell the view to close
+        /// </summary>
         public event EventHandler RequestClose;
+
+        /// <summary>
+        /// Original Vehicle object for the vehicle being edited
+        /// </summary>
         private Vehicle oldVehicle;
 
+        /// <summary>
+        /// Error message to show below buttons
+        /// </summary>
         private string _errorMessage;
+        /// <summary>
+        /// Getter/setter methods for errorMessage
+        /// </summary>
         public string ErrorMessage
         {
             get => _errorMessage;
@@ -21,8 +46,13 @@ namespace VehicleRentalSystem.ViewModel
                 SetProperty(ref _errorMessage, value);
             }
         }
-
+        /// <summary>
+        /// Error message for Make field
+        /// </summary>
         private string _errorMessageMake;
+        /// <summary>
+        /// Getters/setters for Error message for Make field
+        /// </summary>
         public string ErrorMessageMake
         {
             get => _errorMessageMake;
@@ -31,7 +61,13 @@ namespace VehicleRentalSystem.ViewModel
                 SetProperty(ref _errorMessageMake, value);
             }
         }
+        /// <summary>
+        /// Error message for Model field
+        /// </summary>
         private string _errorMessageModel;
+        /// <summary>
+        /// Getters/setters for Error message for Model field
+        /// </summary>
         public string ErrorMessageModel
         {
             get => _errorMessageModel;
@@ -40,7 +76,13 @@ namespace VehicleRentalSystem.ViewModel
                 SetProperty(ref _errorMessageModel, value);
             }
         }
+        /// <summary>
+        /// Error message for year field
+        /// </summary>
         private string _errorMessageYear;
+        /// <summary>
+        /// Getters/setters for Error message for Year field
+        /// </summary>
         public string ErrorMessageYear
         {
             get => _errorMessageYear;
@@ -49,7 +91,13 @@ namespace VehicleRentalSystem.ViewModel
                 SetProperty(ref _errorMessageYear, value);
             }
         }
+        /// <summary>
+        /// Error message for registration field
+        /// </summary>
         private string _errorMessageRegistration;
+        /// <summary>
+        /// Getters/setters for Error message for registration field
+        /// </summary>
         public string ErrorMessageRegistration
         {
             get => _errorMessageRegistration;
@@ -58,7 +106,13 @@ namespace VehicleRentalSystem.ViewModel
                 SetProperty(ref _errorMessageRegistration, value);
             }
         }
+        /// <summary>
+        /// Error message for odometer field
+        /// </summary>
         private string _errorMessageOdometer;
+        /// <summary>
+        /// Getters/setters for Error message for odometer field
+        /// </summary>
         public string ErrorMessageOdometer
         {
             get => _errorMessageOdometer;
@@ -67,7 +121,13 @@ namespace VehicleRentalSystem.ViewModel
                 SetProperty(ref _errorMessageOdometer, value);
             }
         }
+        /// <summary>
+        /// Error message for tank capacity field
+        /// </summary>
         private string _errorMessageTankCapacity;
+        /// <summary>
+        /// Getters/setters for Error message for tank capacity field
+        /// </summary>
         public string ErrorMessageTankCapacity
         {
             get => _errorMessageTankCapacity;
@@ -77,7 +137,13 @@ namespace VehicleRentalSystem.ViewModel
             }
         }
 
+        /// <summary>
+        /// Name of vehicle make
+        /// </summary>
         private string _makeName;
+        /// <summary>
+        /// Getters/setters for name of vehcile make
+        /// </summary>
         public string MakeName
         {
             get => _makeName;
@@ -86,7 +152,13 @@ namespace VehicleRentalSystem.ViewModel
                 SetProperty(ref _makeName, value);
             }
         }
+        /// <summary>
+        /// Name of vehicle model
+        /// </summary>
         private string _modelName;
+        /// <summary>
+        /// Getters/setters for name of vehicle model
+        /// </summary>
         public string ModelName
         {
             get => _modelName;
@@ -95,7 +167,13 @@ namespace VehicleRentalSystem.ViewModel
                 SetProperty(ref _modelName, value);
             }
         }
+        /// <summary>
+        /// Year of vehicle
+        /// </summary>
         private string _year;
+        /// <summary>
+        /// Getetrs/setters for year of vehicle
+        /// </summary>
         public string Year
         {
             get => _year;
@@ -104,7 +182,13 @@ namespace VehicleRentalSystem.ViewModel
                 SetProperty(ref _year, value);
             }
         }
+        /// <summary>
+        /// Vehicle registration number
+        /// </summary>
         private string _registration;
+        /// <summary>
+        /// Getters/senders for Vehicle registration number
+        /// </summary>
         public string Registration
         {
             get => _registration;
@@ -113,7 +197,13 @@ namespace VehicleRentalSystem.ViewModel
                 SetProperty(ref _registration, value);
             }
         }
+        /// <summary>
+        /// Vehicle odometer
+        /// </summary>
         private string _odometer;
+        /// <summary>
+        /// Getters/setters for vehicle odometer
+        /// </summary>
         public string Odometer
         {
             get => _odometer;
@@ -122,7 +212,13 @@ namespace VehicleRentalSystem.ViewModel
                 SetProperty(ref _odometer, value);
             }
         }
+        /// <summary>
+        /// Vehicle's tank capacity
+        /// </summary>
         private string _tankCapacity;
+        /// <summary>
+        /// Getters/setters for vehicle tank capacity
+        /// </summary>
         public string TankCapacity
         {
             get => _tankCapacity;
@@ -132,6 +228,11 @@ namespace VehicleRentalSystem.ViewModel
             }
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="oldVehicle">Vehicle to be edited, or null if adding a new vehicle</param>
+        /// <param name="eventAggregator">Event aggregator for passing messages to other view models</param>
         public EditVehicleViewModel(Vehicle oldVehicle, ref EventAggregator eventAggregator)
         {
             ErrorMessage = "";
@@ -164,16 +265,25 @@ namespace VehicleRentalSystem.ViewModel
             );
         }
 
-
+        /// <summary>
+        /// Publci getter for save command
+        /// </summary>
         public DelegateCommand<string> SaveCommand
         {
             get => _saveCommand;
         }
+        /// <summary>
+        /// Public getter for cancel command
+        /// </summary>
         public DelegateCommand<string> CancelCommand
         {
             get => _cancelCommand;
         }
 
+        /// <summary>
+        /// Validate properties and set error messages as appropriate
+        /// </summary>
+        /// <returns>True if everything is valid, false otherwise</returns>
         private bool validate()
         {
             // Reset any old error message set from SaveVehicle() method
@@ -235,6 +345,10 @@ namespace VehicleRentalSystem.ViewModel
             );
         }
 
+        /// <summary>
+        /// Save the changes made
+        /// </summary>
+        /// <returns>True if changes were saved, false if there was an error</returns>
         private bool SaveVehicle()
         {
             bool valid = validate();
@@ -260,6 +374,9 @@ namespace VehicleRentalSystem.ViewModel
             }
         }
 
+        /// <summary>
+        /// Handles requests to close the view
+        /// </summary>
         protected void OnRequestClose()
         {
             EventHandler handler = this.RequestClose;
