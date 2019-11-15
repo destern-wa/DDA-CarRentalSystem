@@ -234,5 +234,150 @@ namespace UnitTestVehicleRentalSystem
 
             Assert.IsFalse(needsFuel);
         }
+
+        [TestMethod]
+        public void TestStatusUnrented()
+        {
+            Vehicle v = new Vehicle("man", "mod", 2007, "1REG088", 100, 60);
+            Assert.AreEqual("Available", v.Status);
+
+        }
+
+        [TestMethod]
+        public void TestStatusRented()
+        {
+            Vehicle v = new Vehicle("man", "mod", 2007, "1REG088", 100, 60);
+            Rental r = new Rental(DateTime.Now, DateTime.Now, true);
+            v.AddRental(r);
+            Assert.AreEqual("Rented", v.Status);
+
+        }
+
+        [TestMethod]
+        public void TestStatusRentedOverdue()
+        {
+            Vehicle v = new Vehicle("man", "mod", 2007, "1REG088", 100, 60);
+            Rental r = new Rental(new DateTime(2019,10,1), new DateTime(2019, 10, 1), true);
+            v.AddRental(r);
+            Assert.AreEqual("Rented (overdue)", v.Status);
+
+        }
+
+        [TestMethod]
+        public void TestStatusReturned()
+        {
+            Vehicle v = new Vehicle("man", "mod", 2007, "1REG088", 100, 60);
+            Rental r = new Rental(DateTime.Now, DateTime.Now, true);
+            v.AddRental(r);
+            v.ReturnRental(DateTime.Now, 100, 40, 70);
+            Assert.AreEqual("Available", v.Status);
+        }
+
+        [TestMethod]
+        public void TestStatusNeedsService()
+        {
+            Vehicle v = new Vehicle("man", "mod", 2007, "1REG088", 11300, 60);
+            Assert.AreEqual("Needs service", v.Status);
+        }
+
+        [TestMethod]
+        public void TestStatusAfterService()
+        {
+            Vehicle v = new Vehicle("man", "mod", 2007, "1REG088", 11300, 60);
+            Assert.AreEqual("Needs service", v.Status);
+            v.recordService();
+            Assert.AreEqual("Available", v.Status);
+        }
+
+        [TestMethod]
+        public void TestCalculateRevenueNone()
+        {
+            Vehicle v = new Vehicle("man", "mod", 2007, "1REG088", 11300, 60);
+            Assert.AreEqual(0, v.calculateRevenue());
+        }
+
+        [TestMethod]
+        public void TestCalculateRevenueRentedNotReturned()
+        {
+            Vehicle v = new Vehicle("man", "mod", 2007, "1REG088", 11300, 60);
+            Rental r = new Rental(DateTime.Now, DateTime.Now, true);
+            v.AddRental(r);
+            Assert.AreEqual(0, v.calculateRevenue());
+        }
+
+        [TestMethod]
+        public void TestCalculateRevenueOneRentalReturned()
+        {
+            Vehicle v = new Vehicle("man", "mod", 2007, "1REG088", 11300, 60);
+            Rental r = new Rental(DateTime.Now, DateTime.Now, true);
+            v.AddRental(r);
+            v.ReturnRental(DateTime.Now, 100, 40, 70);
+
+            double expectedRevenue = r.calculateCost();
+            double actualRevenue = v.calculateRevenue();
+
+            Assert.AreEqual(expectedRevenue, actualRevenue);
+        }
+
+        [TestMethod]
+        public void TestCalculateRevenueMultipleRentalsReturned()
+        {
+            Vehicle v = new Vehicle("man", "mod", 2007, "1REG088", 11300, 60);
+            Rental r1 = new Rental(DateTime.Now, DateTime.Now, true);
+            v.AddRental(r1);
+            v.ReturnRental(DateTime.Now, 100, 40, 70);
+            Rental r2 = new Rental(DateTime.Now, DateTime.Now, false);
+            v.AddRental(r2);
+            v.ReturnRental(DateTime.Now, 100, 40, 70);
+
+            double expectedRevenue = r1.calculateCost() + r2.calculateCost();
+            double actualRevenue = v.calculateRevenue();
+
+            Assert.AreEqual(expectedRevenue, actualRevenue);
+        }
+
+        [TestMethod]
+        public void TestCalculateFuelEconomyUnknown()
+        {
+            Vehicle v = new Vehicle("man", "mod", 2007, "1REG088", 11300, 60);
+            Assert.AreEqual("Unknown", v.calculateFuelEconomy());
+        }
+
+        [TestMethod]
+        public void TestCalculateFuelEconomySingleRental()
+        {
+            double km = 200;
+            double litres = 20;
+            Vehicle v = new Vehicle("man", "mod", 2007, "1REG088", 11300, 60);
+            Rental r1 = new Rental(DateTime.Now, DateTime.Now, true);
+            v.AddRental(r1);
+            v.ReturnRental(DateTime.Now, km, litres, 70);
+
+            string expectedEconomy = "10L / 100km";
+            string actualEconomy = v.calculateFuelEconomy();
+
+            Assert.AreEqual(expectedEconomy, v.calculateFuelEconomy());
+        }
+
+        [TestMethod]
+        public void TestCalculateFuelEconomyMutlipleRentals()
+        {
+            double km1 = 200;
+            double litres1 = 10;
+            double km2 = 100;
+            double litres2 = 20;
+            Vehicle v = new Vehicle("man", "mod", 2007, "1REG088", 11300, 60);
+            Rental r1 = new Rental(DateTime.Now, DateTime.Now, true);
+            v.AddRental(r1);
+            v.ReturnRental(DateTime.Now, km1, litres1, 70);
+            Rental r2 = new Rental(DateTime.Now, DateTime.Now, true);
+            v.AddRental(r2);
+            v.ReturnRental(DateTime.Now, km2, litres2, 70);
+
+            string expectedEconomy = "10L / 100km";
+            string actualEconomy = v.calculateFuelEconomy();
+
+            Assert.AreEqual(expectedEconomy, v.calculateFuelEconomy());
+        }
     }
 }
