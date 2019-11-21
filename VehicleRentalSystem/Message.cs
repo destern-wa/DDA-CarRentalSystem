@@ -11,12 +11,21 @@ using System.Threading.Tasks;
 
 namespace VehicleRentalSystem
 {
+    /// <summary>
+    /// Base interface for  IListen<T>
+    /// </summary>
     public interface IListen { }
+    /// <summary>
+    /// Interface for view models that need to listen to events from other view models
+    /// </summary>
     public interface IListen<T> : IListen
     {
         void Handle(T obj);
     }
 
+    /// <summary>
+    /// Handles messages that need to be passed between view models
+    /// </summary>
     public class EventAggregator
     {
         private List<IListen> subscribers = new List<IListen>();
@@ -40,10 +49,22 @@ namespace VehicleRentalSystem
         }
     }
 
+    /// <summary>
+    /// Message to be passed between view models
+    /// </summary>
     class Message
     {
+        /// <summary>
+        /// New/edited/update vehicle
+        /// </summary>
         public Vehicle Vehicle { get; set; }
+        /// <summary>
+        /// Original vehicle that was edited
+        /// </summary>
         public Vehicle OldVehicle { get; set; }
+        /// <summary>
+        /// If the vehicle has been updated without basic details being edited (e.g. it was rented out)
+        /// </summary>
         public bool Updated { get; set; }
     }
 }

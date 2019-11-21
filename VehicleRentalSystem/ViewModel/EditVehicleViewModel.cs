@@ -266,7 +266,7 @@ namespace VehicleRentalSystem.ViewModel
         }
 
         /// <summary>
-        /// Publci getter for save command
+        /// Public getter for save command
         /// </summary>
         public DelegateCommand<string> SaveCommand
         {
