@@ -1,5 +1,5 @@
-# Open source vehicle rental system application
-This is a prototype for assignment 2 of the Open Source and Testing course. It is based on the starter code provided at [NMTafeOpenSource/Assignment2-OSStarterCode](https://github.com/NMTafeOpenSource/Assignment2-OSStarterCode)
+# Open source vehicle rental system application with database
+This is a prototype for assignment 2 of the Data Driven Applications course. It is based on the prototype code from [Assignment2-OSStarterCode](https://github.com/destern-wa/Assignment2-OSStarterCode) (originally forked from [NMTafeOpenSource/Assignment2-OSStarterCode](https://github.com/NMTafeOpenSource/Assignment2-OSStarterCode))
 
 ## Features and limitations
 This prototype proveds a GUI interface for a car rental management system. It is coded in C# using the MVVM pattern. See the wiki for features and limitations/assumptions.
